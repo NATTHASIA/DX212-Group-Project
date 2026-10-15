@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { Text, View, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Screen, Btn, Field } from '../lib/ui';
+import { useState } from 'react';
+import { Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useStore } from '../lib/store';
 import { C } from '../lib/theme';
+import { Btn, Field, Screen } from '../lib/ui';
 
 // ตัวเลือกแบบกดสลับ (chip) ใช้กับ Repeat และ Notifications
 const Chips = ({ options, value, onPick, label }) => (

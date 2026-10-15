@@ -51,11 +51,27 @@ export default function SignUpScreen() {
       if (data?.url) {
         const result = await WebBrowser.openAuthSessionAsync(data.url, redirectUrl);
         
-        if (result.type === 'success') {
-          console.log('Google ล็อกอินสำเร็จแล้ว!');
-          // ระบบ Auth.js ที่คุณลงไว้จะจับ Session ได้เองแล้วพาเปลี่ยนหน้าอัตโนมัติ
+        if (result.type === 'success' && result.url) {
+          console.log('Google ล็อกอินสำเร็จแล้ว! กำลังบันทึก Session...');
+          
+          // 🟢 เพิ่มโค้ดส่วนนี้เพื่อแกะรหัส Session ออกจากลิงก์ที่ Safari ส่งกลับมา
+          const parsedUrl = Linking.parse(result.url);
+          
+          if (parsedUrl.queryParams?.code) {
+            // ถ้าระบบส่งเป็น Code มา ให้เอาไปแลกเป็น Session
+            await supabase.auth.exchangeCodeForSession(parsedUrl.queryParams.code);
+          } else if (parsedUrl.queryParams?.access_token) {
+            // ถ้าระบบส่ง Token มาตรงๆ ก็บันทึกได้เลย
+            await supabase.auth.setSession({
+              access_token: parsedUrl.queryParams.access_token,
+              refresh_token: parsedUrl.queryParams.refresh_token
+            });
+          }
+          
+          // พอถึงตรงนี้ ไฟล์ _layout.js ของคุณจะทำงานแล้ววาร์ปไปหน้า /username อัตโนมัติครับ!
         }
       }
+      
     } catch (error) {
       console.error('Google Login Error:', error.message);
     }
@@ -63,7 +79,14 @@ export default function SignUpScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      
+      {/* 🛠️ ปุ่ม Dev ชั่วคราว (ลอยอยู่มุมขวาบน) */}
+      <TouchableOpacity 
+        style={{ position: 'absolute', top: 50, right: 20, backgroundColor: '#333', padding: 8, borderRadius: 8, zIndex: 999 }}
+        onPress={() => router.push('/username')}
+      >
+        <Text style={{ color: 'white', fontSize: 12 }}>[Dev] ไป Username</Text>
+      </TouchableOpacity>
+
       {/* ส่วนเนื้อหาที่เลื่อนได้ */}
       <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

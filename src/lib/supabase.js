@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js';
 import { AppState } from 'react-native';
+import 'react-native-get-random-values'; // 🟢 เพิ่มบรรทัดนี้ไว้บนสุด
 import 'react-native-url-polyfill/auto'; // จำเป็นสำหรับ supabase-js บน React Native
 
 export const supabase = createClient(
