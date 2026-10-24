@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "command": "deliver",
+  "status": "pending",
+  "receiptId": "a4b14e70-066f-45cc-b325-4133fd4aecc9",
+  "input": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+  "output": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v10.html"
+}

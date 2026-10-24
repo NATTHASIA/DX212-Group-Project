@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "workflow",
+  "quality": "showcase",
+  "specification": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+    "sha256": "ef3ba61214d81ba7f3c0ba41a2d9a10b959ae67974396680225364b35431277e",
+    "bytes": 8808
+  },
+  "artifact": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v10.html"
+  },
+  "gates": {
+    "validate": "fail",
+    "deliver": "not-run",
+    "check": "not-run",
+    "browser-check": "not-run"
+  },
+  "failedStage": "validate",
+  "diagnostics": [
+    {
+      "code": "workflow/route-preset-conflict",
+      "severity": "error",
+      "message": "Workflow edge \"result-blocked-unknown\" cannot satisfy route preset \"bottom-channel\": candidate violates placed edge-label clearance.",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": "result-blocked-unknown",
+        "from": "tool_result",
+        "to": "blocked_unknown",
+        "route": "bottom-channel"
+      },
+      "evidence": {
+        "invariant": "placed edge-label clearance",
+        "conflictType": "label-route",
+        "candidateEdge": {
+          "edge": "result-blocked-unknown",
+          "from": "tool_result",
+          "to": "blocked_unknown",
+          "path": "/edges/9"
+        },
+        "otherEdge": {
+          "edge": "tool-observability",
+          "from": "tool_call",
+          "to": "trace_unknown",
+          "path": "/edges/7"
+        },
+        "candidateLabel": {
+          "label": "ผลถูกบล็อก: ทางออกไม่ระบุ",
+          "rect": {
+            "x": 536,
+            "y": 653,
+            "width": 130,
+            "height": 14
+          }
+        },
+        "segment": {
+          "edge": "other",
+          "index": 0,
+          "from": [
+            630,
+            641
+          ],
+          "to": [
+            630,
+            713
+          ]
+        },
+        "measuredClearancePx": 0,
+        "requiredClearancePx": 4,
+        "attemptedCandidateFamily": "bottom-channel",
+        "points": [
+          [
+            868,
+            641
+          ],
+          [
+            868,
+            673
+          ],
+          [
+            334,
+            673
+          ],
+          [
+            334,
+            517
+          ]
+        ],
+        "fromSide": "bottom",
+        "toSide": "bottom",
+        "requiredEndpointStubPx": 8,
+        "requiredInteriorSegmentPx": 16,
+        "requiredDirectClearancePx": 28
+      }
+    }
+  ],
+  "diagnosticSummary": {
+    "total": 1,
+    "shown": 1,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v10.finalize.json",
+    "summaryReceipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v10.finalize-summary.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-23T14:55:34.268Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2697,
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "nextAction": {
+    "action": "edit-in-place",
+    "candidate": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+    "constraint": "Preserve unaffected semantics and geometry; apply each diagnostic's supportedFixes, or the fix its message names, and do not replace the whole candidate.",
+    "then": "finalize-once"
+  }
+}

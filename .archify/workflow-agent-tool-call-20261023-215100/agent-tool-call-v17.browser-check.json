@@ -1,0 +1,1585 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "browser-check",
+  "evidenceKind": "automated-browser",
+  "status": "pass",
+  "visualReview": "not-requested",
+  "provenance": "current",
+  "deliveryReceiptId": "c8a4078b-844b-4178-b621-c1bb5d0312d9",
+  "artifact": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v17.html",
+    "sha256": "b0934fc1e13840a8c10c9ee006fcb46772a436c98c2e01642b90d9e00d35fd8a",
+    "bytes": 839877
+  },
+  "state": {
+    "detail": "read",
+    "motion": "still"
+  },
+  "chrome": {
+    "status": "available",
+    "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+  },
+  "diagnostics": [],
+  "containment": {
+    "status": "pass",
+    "policy": "fit-or-reader-declared-readable-vertical-scroll",
+    "viewports": [
+      {
+        "width": 1440,
+        "height": 900,
+        "theme": "light",
+        "innerWidth": 1440,
+        "innerHeight": 900,
+        "scrollWidth": 1440,
+        "scrollHeight": 1321,
+        "overflowX": false,
+        "overflowY": true,
+        "verticalScrollAccepted": true,
+        "overflowDisposition": "readable-vertical-scroll",
+        "readerLayout": "adaptive",
+        "readerOverflow": "authored",
+        "readerFit": "width-first",
+        "ok": true,
+        "readerWidth": 1376,
+        "diagramWidth": 1346,
+        "pageComposition": {
+          "bodyPaddingPx": 12,
+          "headerPx": 52,
+          "diagramChromePx": 78,
+          "svgPx": 1178,
+          "cardsPx": 0,
+          "viewBoxHeight": 900
+        },
+        "viewBoxWidth": 1028,
+        "workflowLanes": [
+          {
+            "frameId": "lane-0",
+            "heightPx": 136,
+            "nodeCount": 2,
+            "nodeIds": [
+              "request",
+              "answer"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          },
+          {
+            "frameId": "lane-1",
+            "heightPx": 136,
+            "nodeCount": 2,
+            "nodeIds": [
+              "agent",
+              "resume"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          },
+          {
+            "frameId": "lane-2",
+            "heightPx": 136,
+            "nodeCount": 1,
+            "nodeIds": [
+              "policy"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          },
+          {
+            "frameId": "lane-3",
+            "heightPx": 136,
+            "nodeCount": 3,
+            "nodeIds": [
+              "approval_unknown",
+              "blocked_unknown",
+              "retry_unknown"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          },
+          {
+            "frameId": "lane-4",
+            "heightPx": 136,
+            "nodeCount": 2,
+            "nodeIds": [
+              "tool_call",
+              "tool_result"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          },
+          {
+            "frameId": "lane-5",
+            "heightPx": 136,
+            "nodeCount": 2,
+            "nodeIds": [
+              "repo_evidence",
+              "trace_unknown"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          }
+        ],
+        "minimumProjectedNodeTextPx": 6.9,
+        "minimumProjectedNonEdgeTextPx": 6.9,
+        "minimumProjectedEdgeTextPx": 8,
+        "minimumProjectedNodeText": "ปลายทางของเส้นทางสำเร็จ",
+        "minimumProjectedNodeTextDetail": "context",
+        "minimumProjectedNodeTextOwner": {
+          "kind": "node",
+          "id": "answer"
+        },
+        "minimumRequiredNodeTextPx": 6,
+        "readabilityOk": true,
+        "hasLegend": true,
+        "hasNavigationDock": true,
+        "legendDockIntersectionArea": 0,
+        "dockStageIntersectionArea": 0,
+        "dockStageGap": 10,
+        "requiredDockStageGap": 10,
+        "viewerChromeStageOk": true,
+        "viewerChromeReserve": 54,
+        "viewerChromeActive": true,
+        "viewerChromeOk": true,
+        "resolvedTheme": "light"
+      },
+      {
+        "width": 1600,
+        "height": 1000,
+        "theme": "light",
+        "innerWidth": 1600,
+        "innerHeight": 1000,
+        "scrollWidth": 1600,
+        "scrollHeight": 1527,
+        "overflowX": false,
+        "overflowY": true,
+        "verticalScrollAccepted": true,
+        "overflowDisposition": "readable-vertical-scroll",
+        "readerLayout": "adaptive",
+        "readerOverflow": "authored",
+        "readerFit": "width-first",
+        "ok": true,
+        "readerWidth": 1536,
+        "diagramWidth": 1506,
+        "pageComposition": {
+          "bodyPaddingPx": 64,
+          "headerPx": 60,
+          "diagramChromePx": 84,
+          "svgPx": 1318,
+          "cardsPx": 0,
+          "viewBoxHeight": 900
+        },
+        "viewBoxWidth": 1028,
+        "workflowLanes": [
+          {
+            "frameId": "lane-0",
+            "heightPx": 152,
+            "nodeCount": 2,
+            "nodeIds": [
+              "request",
+              "answer"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          },
+          {
+            "frameId": "lane-1",
+            "heightPx": 152,
+            "nodeCount": 2,
+            "nodeIds": [
+              "agent",
+              "resume"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          },
+          {
+            "frameId": "lane-2",
+            "heightPx": 152,
+            "nodeCount": 1,
+            "nodeIds": [
+              "policy"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          },
+          {
+            "frameId": "lane-3",
+            "heightPx": 152,
+            "nodeCount": 3,
+            "nodeIds": [
+              "approval_unknown",
+              "blocked_unknown",
+              "retry_unknown"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          },
+          {
+            "frameId": "lane-4",
+            "heightPx": 152,
+            "nodeCount": 2,
+            "nodeIds": [
+              "tool_call",
+              "tool_result"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          },
+          {
+            "frameId": "lane-5",
+            "heightPx": 152,
+            "nodeCount": 2,
+            "nodeIds": [
+              "repo_evidence",
+              "trace_unknown"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          }
+        ],
+        "minimumProjectedNodeTextPx": 6.9,
+        "minimumProjectedNonEdgeTextPx": 6.9,
+        "minimumProjectedEdgeTextPx": 8,
+        "minimumProjectedNodeText": "ปลายทางของเส้นทางสำเร็จ",
+        "minimumProjectedNodeTextDetail": "context",
+        "minimumProjectedNodeTextOwner": {
+          "kind": "node",
+          "id": "answer"
+        },
+        "minimumRequiredNodeTextPx": 6,
+        "readabilityOk": true,
+        "hasLegend": true,
+        "hasNavigationDock": true,
+        "legendDockIntersectionArea": 0,
+        "dockStageIntersectionArea": 0,
+        "dockStageGap": 10,
+        "requiredDockStageGap": 10,
+        "viewerChromeStageOk": true,
+        "viewerChromeReserve": 54,
+        "viewerChromeActive": true,
+        "viewerChromeOk": true,
+        "resolvedTheme": "light"
+      },
+      {
+        "width": 1920,
+        "height": 1080,
+        "theme": "light",
+        "innerWidth": 1920,
+        "innerHeight": 1080,
+        "scrollWidth": 1920,
+        "scrollHeight": 1559,
+        "overflowX": false,
+        "overflowY": true,
+        "verticalScrollAccepted": true,
+        "overflowDisposition": "readable-vertical-scroll",
+        "readerLayout": "adaptive",
+        "readerOverflow": "authored",
+        "readerFit": "width-first",
+        "ok": true,
+        "readerWidth": 1856,
+        "diagramWidth": 1542,
+        "pageComposition": {
+          "bodyPaddingPx": 64,
+          "headerPx": 60,
+          "diagramChromePx": 84,
+          "svgPx": 1350,
+          "cardsPx": 0,
+          "viewBoxHeight": 900
+        },
+        "viewBoxWidth": 1028,
+        "workflowLanes": [
+          {
+            "frameId": "lane-0",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "request",
+              "answer"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-1",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "agent",
+              "resume"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-2",
+            "heightPx": 156,
+            "nodeCount": 1,
+            "nodeIds": [
+              "policy"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-3",
+            "heightPx": 156,
+            "nodeCount": 3,
+            "nodeIds": [
+              "approval_unknown",
+              "blocked_unknown",
+              "retry_unknown"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-4",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "tool_call",
+              "tool_result"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-5",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "repo_evidence",
+              "trace_unknown"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          }
+        ],
+        "minimumProjectedNodeTextPx": 6.9,
+        "minimumProjectedNonEdgeTextPx": 6.9,
+        "minimumProjectedEdgeTextPx": 8,
+        "minimumProjectedNodeText": "ปลายทางของเส้นทางสำเร็จ",
+        "minimumProjectedNodeTextDetail": "context",
+        "minimumProjectedNodeTextOwner": {
+          "kind": "node",
+          "id": "answer"
+        },
+        "minimumRequiredNodeTextPx": 6,
+        "readabilityOk": true,
+        "hasLegend": true,
+        "hasNavigationDock": true,
+        "legendDockIntersectionArea": 0,
+        "dockStageIntersectionArea": 0,
+        "dockStageGap": 10,
+        "requiredDockStageGap": 10,
+        "viewerChromeStageOk": true,
+        "viewerChromeReserve": 54,
+        "viewerChromeActive": true,
+        "viewerChromeOk": true,
+        "resolvedTheme": "light"
+      },
+      {
+        "width": 2048,
+        "height": 1320,
+        "theme": "light",
+        "innerWidth": 2048,
+        "innerHeight": 1320,
+        "scrollWidth": 2048,
+        "scrollHeight": 1577,
+        "overflowX": false,
+        "overflowY": true,
+        "verticalScrollAccepted": true,
+        "overflowDisposition": "readable-vertical-scroll",
+        "readerLayout": "adaptive",
+        "readerOverflow": "authored",
+        "readerFit": "width-first",
+        "ok": true,
+        "readerWidth": 1920,
+        "diagramWidth": 1542,
+        "pageComposition": {
+          "bodyPaddingPx": 64,
+          "headerPx": 68,
+          "diagramChromePx": 94,
+          "svgPx": 1350,
+          "cardsPx": 0,
+          "viewBoxHeight": 900
+        },
+        "viewBoxWidth": 1028,
+        "workflowLanes": [
+          {
+            "frameId": "lane-0",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "request",
+              "answer"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-1",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "agent",
+              "resume"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-2",
+            "heightPx": 156,
+            "nodeCount": 1,
+            "nodeIds": [
+              "policy"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-3",
+            "heightPx": 156,
+            "nodeCount": 3,
+            "nodeIds": [
+              "approval_unknown",
+              "blocked_unknown",
+              "retry_unknown"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-4",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "tool_call",
+              "tool_result"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-5",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "repo_evidence",
+              "trace_unknown"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          }
+        ],
+        "minimumProjectedNodeTextPx": 6.9,
+        "minimumProjectedNonEdgeTextPx": 6.9,
+        "minimumProjectedEdgeTextPx": 8,
+        "minimumProjectedNodeText": "ปลายทางของเส้นทางสำเร็จ",
+        "minimumProjectedNodeTextDetail": "context",
+        "minimumProjectedNodeTextOwner": {
+          "kind": "node",
+          "id": "answer"
+        },
+        "minimumRequiredNodeTextPx": 6,
+        "readabilityOk": true,
+        "hasLegend": true,
+        "hasNavigationDock": true,
+        "legendDockIntersectionArea": 0,
+        "dockStageIntersectionArea": 0,
+        "dockStageGap": 10,
+        "requiredDockStageGap": 10,
+        "viewerChromeStageOk": true,
+        "viewerChromeReserve": 44,
+        "viewerChromeActive": true,
+        "viewerChromeOk": true,
+        "resolvedTheme": "light"
+      }
+    ]
+  },
+  "themeStates": {
+    "status": "pass",
+    "viewports": [
+      {
+        "width": 1440,
+        "height": 900,
+        "requestedTheme": "light",
+        "resolvedTheme": "light",
+        "ok": true
+      },
+      {
+        "width": 1600,
+        "height": 1000,
+        "requestedTheme": "light",
+        "resolvedTheme": "light",
+        "ok": true
+      },
+      {
+        "width": 1920,
+        "height": 1080,
+        "requestedTheme": "light",
+        "resolvedTheme": "light",
+        "ok": true
+      },
+      {
+        "width": 2048,
+        "height": 1320,
+        "requestedTheme": "light",
+        "resolvedTheme": "light",
+        "ok": true
+      },
+      {
+        "width": 1440,
+        "height": 900,
+        "requestedTheme": "dark",
+        "resolvedTheme": "dark",
+        "ok": true
+      },
+      {
+        "width": 2048,
+        "height": 1320,
+        "requestedTheme": "dark",
+        "resolvedTheme": "dark",
+        "ok": true
+      }
+    ]
+  },
+  "readability": {
+    "status": "pass",
+    "minimumProjectedNodeTextPx": 6,
+    "viewports": [
+      {
+        "width": 1440,
+        "height": 900,
+        "theme": "light",
+        "innerWidth": 1440,
+        "innerHeight": 900,
+        "scrollWidth": 1440,
+        "scrollHeight": 1321,
+        "overflowX": false,
+        "overflowY": true,
+        "verticalScrollAccepted": true,
+        "overflowDisposition": "readable-vertical-scroll",
+        "readerLayout": "adaptive",
+        "readerOverflow": "authored",
+        "readerFit": "width-first",
+        "ok": true,
+        "readerWidth": 1376,
+        "diagramWidth": 1346,
+        "pageComposition": {
+          "bodyPaddingPx": 12,
+          "headerPx": 52,
+          "diagramChromePx": 78,
+          "svgPx": 1178,
+          "cardsPx": 0,
+          "viewBoxHeight": 900
+        },
+        "viewBoxWidth": 1028,
+        "workflowLanes": [
+          {
+            "frameId": "lane-0",
+            "heightPx": 136,
+            "nodeCount": 2,
+            "nodeIds": [
+              "request",
+              "answer"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          },
+          {
+            "frameId": "lane-1",
+            "heightPx": 136,
+            "nodeCount": 2,
+            "nodeIds": [
+              "agent",
+              "resume"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          },
+          {
+            "frameId": "lane-2",
+            "heightPx": 136,
+            "nodeCount": 1,
+            "nodeIds": [
+              "policy"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          },
+          {
+            "frameId": "lane-3",
+            "heightPx": 136,
+            "nodeCount": 3,
+            "nodeIds": [
+              "approval_unknown",
+              "blocked_unknown",
+              "retry_unknown"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          },
+          {
+            "frameId": "lane-4",
+            "heightPx": 136,
+            "nodeCount": 2,
+            "nodeIds": [
+              "tool_call",
+              "tool_result"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          },
+          {
+            "frameId": "lane-5",
+            "heightPx": 136,
+            "nodeCount": 2,
+            "nodeIds": [
+              "repo_evidence",
+              "trace_unknown"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          }
+        ],
+        "minimumProjectedNodeTextPx": 6.9,
+        "minimumProjectedNonEdgeTextPx": 6.9,
+        "minimumProjectedEdgeTextPx": 8,
+        "minimumProjectedNodeText": "ปลายทางของเส้นทางสำเร็จ",
+        "minimumProjectedNodeTextDetail": "context",
+        "minimumProjectedNodeTextOwner": {
+          "kind": "node",
+          "id": "answer"
+        },
+        "minimumRequiredNodeTextPx": 6,
+        "readabilityOk": true,
+        "hasLegend": true,
+        "hasNavigationDock": true,
+        "legendDockIntersectionArea": 0,
+        "dockStageIntersectionArea": 0,
+        "dockStageGap": 10,
+        "requiredDockStageGap": 10,
+        "viewerChromeStageOk": true,
+        "viewerChromeReserve": 54,
+        "viewerChromeActive": true,
+        "viewerChromeOk": true,
+        "resolvedTheme": "light"
+      },
+      {
+        "width": 1600,
+        "height": 1000,
+        "theme": "light",
+        "innerWidth": 1600,
+        "innerHeight": 1000,
+        "scrollWidth": 1600,
+        "scrollHeight": 1527,
+        "overflowX": false,
+        "overflowY": true,
+        "verticalScrollAccepted": true,
+        "overflowDisposition": "readable-vertical-scroll",
+        "readerLayout": "adaptive",
+        "readerOverflow": "authored",
+        "readerFit": "width-first",
+        "ok": true,
+        "readerWidth": 1536,
+        "diagramWidth": 1506,
+        "pageComposition": {
+          "bodyPaddingPx": 64,
+          "headerPx": 60,
+          "diagramChromePx": 84,
+          "svgPx": 1318,
+          "cardsPx": 0,
+          "viewBoxHeight": 900
+        },
+        "viewBoxWidth": 1028,
+        "workflowLanes": [
+          {
+            "frameId": "lane-0",
+            "heightPx": 152,
+            "nodeCount": 2,
+            "nodeIds": [
+              "request",
+              "answer"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          },
+          {
+            "frameId": "lane-1",
+            "heightPx": 152,
+            "nodeCount": 2,
+            "nodeIds": [
+              "agent",
+              "resume"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          },
+          {
+            "frameId": "lane-2",
+            "heightPx": 152,
+            "nodeCount": 1,
+            "nodeIds": [
+              "policy"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          },
+          {
+            "frameId": "lane-3",
+            "heightPx": 152,
+            "nodeCount": 3,
+            "nodeIds": [
+              "approval_unknown",
+              "blocked_unknown",
+              "retry_unknown"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          },
+          {
+            "frameId": "lane-4",
+            "heightPx": 152,
+            "nodeCount": 2,
+            "nodeIds": [
+              "tool_call",
+              "tool_result"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          },
+          {
+            "frameId": "lane-5",
+            "heightPx": 152,
+            "nodeCount": 2,
+            "nodeIds": [
+              "repo_evidence",
+              "trace_unknown"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          }
+        ],
+        "minimumProjectedNodeTextPx": 6.9,
+        "minimumProjectedNonEdgeTextPx": 6.9,
+        "minimumProjectedEdgeTextPx": 8,
+        "minimumProjectedNodeText": "ปลายทางของเส้นทางสำเร็จ",
+        "minimumProjectedNodeTextDetail": "context",
+        "minimumProjectedNodeTextOwner": {
+          "kind": "node",
+          "id": "answer"
+        },
+        "minimumRequiredNodeTextPx": 6,
+        "readabilityOk": true,
+        "hasLegend": true,
+        "hasNavigationDock": true,
+        "legendDockIntersectionArea": 0,
+        "dockStageIntersectionArea": 0,
+        "dockStageGap": 10,
+        "requiredDockStageGap": 10,
+        "viewerChromeStageOk": true,
+        "viewerChromeReserve": 54,
+        "viewerChromeActive": true,
+        "viewerChromeOk": true,
+        "resolvedTheme": "light"
+      },
+      {
+        "width": 1920,
+        "height": 1080,
+        "theme": "light",
+        "innerWidth": 1920,
+        "innerHeight": 1080,
+        "scrollWidth": 1920,
+        "scrollHeight": 1559,
+        "overflowX": false,
+        "overflowY": true,
+        "verticalScrollAccepted": true,
+        "overflowDisposition": "readable-vertical-scroll",
+        "readerLayout": "adaptive",
+        "readerOverflow": "authored",
+        "readerFit": "width-first",
+        "ok": true,
+        "readerWidth": 1856,
+        "diagramWidth": 1542,
+        "pageComposition": {
+          "bodyPaddingPx": 64,
+          "headerPx": 60,
+          "diagramChromePx": 84,
+          "svgPx": 1350,
+          "cardsPx": 0,
+          "viewBoxHeight": 900
+        },
+        "viewBoxWidth": 1028,
+        "workflowLanes": [
+          {
+            "frameId": "lane-0",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "request",
+              "answer"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-1",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "agent",
+              "resume"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-2",
+            "heightPx": 156,
+            "nodeCount": 1,
+            "nodeIds": [
+              "policy"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-3",
+            "heightPx": 156,
+            "nodeCount": 3,
+            "nodeIds": [
+              "approval_unknown",
+              "blocked_unknown",
+              "retry_unknown"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-4",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "tool_call",
+              "tool_result"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-5",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "repo_evidence",
+              "trace_unknown"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          }
+        ],
+        "minimumProjectedNodeTextPx": 6.9,
+        "minimumProjectedNonEdgeTextPx": 6.9,
+        "minimumProjectedEdgeTextPx": 8,
+        "minimumProjectedNodeText": "ปลายทางของเส้นทางสำเร็จ",
+        "minimumProjectedNodeTextDetail": "context",
+        "minimumProjectedNodeTextOwner": {
+          "kind": "node",
+          "id": "answer"
+        },
+        "minimumRequiredNodeTextPx": 6,
+        "readabilityOk": true,
+        "hasLegend": true,
+        "hasNavigationDock": true,
+        "legendDockIntersectionArea": 0,
+        "dockStageIntersectionArea": 0,
+        "dockStageGap": 10,
+        "requiredDockStageGap": 10,
+        "viewerChromeStageOk": true,
+        "viewerChromeReserve": 54,
+        "viewerChromeActive": true,
+        "viewerChromeOk": true,
+        "resolvedTheme": "light"
+      },
+      {
+        "width": 2048,
+        "height": 1320,
+        "theme": "light",
+        "innerWidth": 2048,
+        "innerHeight": 1320,
+        "scrollWidth": 2048,
+        "scrollHeight": 1577,
+        "overflowX": false,
+        "overflowY": true,
+        "verticalScrollAccepted": true,
+        "overflowDisposition": "readable-vertical-scroll",
+        "readerLayout": "adaptive",
+        "readerOverflow": "authored",
+        "readerFit": "width-first",
+        "ok": true,
+        "readerWidth": 1920,
+        "diagramWidth": 1542,
+        "pageComposition": {
+          "bodyPaddingPx": 64,
+          "headerPx": 68,
+          "diagramChromePx": 94,
+          "svgPx": 1350,
+          "cardsPx": 0,
+          "viewBoxHeight": 900
+        },
+        "viewBoxWidth": 1028,
+        "workflowLanes": [
+          {
+            "frameId": "lane-0",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "request",
+              "answer"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-1",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "agent",
+              "resume"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-2",
+            "heightPx": 156,
+            "nodeCount": 1,
+            "nodeIds": [
+              "policy"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-3",
+            "heightPx": 156,
+            "nodeCount": 3,
+            "nodeIds": [
+              "approval_unknown",
+              "blocked_unknown",
+              "retry_unknown"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-4",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "tool_call",
+              "tool_result"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-5",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "repo_evidence",
+              "trace_unknown"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          }
+        ],
+        "minimumProjectedNodeTextPx": 6.9,
+        "minimumProjectedNonEdgeTextPx": 6.9,
+        "minimumProjectedEdgeTextPx": 8,
+        "minimumProjectedNodeText": "ปลายทางของเส้นทางสำเร็จ",
+        "minimumProjectedNodeTextDetail": "context",
+        "minimumProjectedNodeTextOwner": {
+          "kind": "node",
+          "id": "answer"
+        },
+        "minimumRequiredNodeTextPx": 6,
+        "readabilityOk": true,
+        "hasLegend": true,
+        "hasNavigationDock": true,
+        "legendDockIntersectionArea": 0,
+        "dockStageIntersectionArea": 0,
+        "dockStageGap": 10,
+        "requiredDockStageGap": 10,
+        "viewerChromeStageOk": true,
+        "viewerChromeReserve": 44,
+        "viewerChromeActive": true,
+        "viewerChromeOk": true,
+        "resolvedTheme": "light"
+      }
+    ]
+  },
+  "viewerChrome": {
+    "status": "pass",
+    "viewports": [
+      {
+        "width": 1440,
+        "height": 900,
+        "theme": "light",
+        "innerWidth": 1440,
+        "innerHeight": 900,
+        "scrollWidth": 1440,
+        "scrollHeight": 1321,
+        "overflowX": false,
+        "overflowY": true,
+        "verticalScrollAccepted": true,
+        "overflowDisposition": "readable-vertical-scroll",
+        "readerLayout": "adaptive",
+        "readerOverflow": "authored",
+        "readerFit": "width-first",
+        "ok": true,
+        "readerWidth": 1376,
+        "diagramWidth": 1346,
+        "pageComposition": {
+          "bodyPaddingPx": 12,
+          "headerPx": 52,
+          "diagramChromePx": 78,
+          "svgPx": 1178,
+          "cardsPx": 0,
+          "viewBoxHeight": 900
+        },
+        "viewBoxWidth": 1028,
+        "workflowLanes": [
+          {
+            "frameId": "lane-0",
+            "heightPx": 136,
+            "nodeCount": 2,
+            "nodeIds": [
+              "request",
+              "answer"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          },
+          {
+            "frameId": "lane-1",
+            "heightPx": 136,
+            "nodeCount": 2,
+            "nodeIds": [
+              "agent",
+              "resume"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          },
+          {
+            "frameId": "lane-2",
+            "heightPx": 136,
+            "nodeCount": 1,
+            "nodeIds": [
+              "policy"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          },
+          {
+            "frameId": "lane-3",
+            "heightPx": 136,
+            "nodeCount": 3,
+            "nodeIds": [
+              "approval_unknown",
+              "blocked_unknown",
+              "retry_unknown"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          },
+          {
+            "frameId": "lane-4",
+            "heightPx": 136,
+            "nodeCount": 2,
+            "nodeIds": [
+              "tool_call",
+              "tool_result"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          },
+          {
+            "frameId": "lane-5",
+            "heightPx": 136,
+            "nodeCount": 2,
+            "nodeIds": [
+              "repo_evidence",
+              "trace_unknown"
+            ],
+            "nodeSpanPx": 68,
+            "spaceAboveNodesPx": 54,
+            "spaceBelowNodesPx": 14
+          }
+        ],
+        "minimumProjectedNodeTextPx": 6.9,
+        "minimumProjectedNonEdgeTextPx": 6.9,
+        "minimumProjectedEdgeTextPx": 8,
+        "minimumProjectedNodeText": "ปลายทางของเส้นทางสำเร็จ",
+        "minimumProjectedNodeTextDetail": "context",
+        "minimumProjectedNodeTextOwner": {
+          "kind": "node",
+          "id": "answer"
+        },
+        "minimumRequiredNodeTextPx": 6,
+        "readabilityOk": true,
+        "hasLegend": true,
+        "hasNavigationDock": true,
+        "legendDockIntersectionArea": 0,
+        "dockStageIntersectionArea": 0,
+        "dockStageGap": 10,
+        "requiredDockStageGap": 10,
+        "viewerChromeStageOk": true,
+        "viewerChromeReserve": 54,
+        "viewerChromeActive": true,
+        "viewerChromeOk": true,
+        "resolvedTheme": "light"
+      },
+      {
+        "width": 1600,
+        "height": 1000,
+        "theme": "light",
+        "innerWidth": 1600,
+        "innerHeight": 1000,
+        "scrollWidth": 1600,
+        "scrollHeight": 1527,
+        "overflowX": false,
+        "overflowY": true,
+        "verticalScrollAccepted": true,
+        "overflowDisposition": "readable-vertical-scroll",
+        "readerLayout": "adaptive",
+        "readerOverflow": "authored",
+        "readerFit": "width-first",
+        "ok": true,
+        "readerWidth": 1536,
+        "diagramWidth": 1506,
+        "pageComposition": {
+          "bodyPaddingPx": 64,
+          "headerPx": 60,
+          "diagramChromePx": 84,
+          "svgPx": 1318,
+          "cardsPx": 0,
+          "viewBoxHeight": 900
+        },
+        "viewBoxWidth": 1028,
+        "workflowLanes": [
+          {
+            "frameId": "lane-0",
+            "heightPx": 152,
+            "nodeCount": 2,
+            "nodeIds": [
+              "request",
+              "answer"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          },
+          {
+            "frameId": "lane-1",
+            "heightPx": 152,
+            "nodeCount": 2,
+            "nodeIds": [
+              "agent",
+              "resume"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          },
+          {
+            "frameId": "lane-2",
+            "heightPx": 152,
+            "nodeCount": 1,
+            "nodeIds": [
+              "policy"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          },
+          {
+            "frameId": "lane-3",
+            "heightPx": 152,
+            "nodeCount": 3,
+            "nodeIds": [
+              "approval_unknown",
+              "blocked_unknown",
+              "retry_unknown"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          },
+          {
+            "frameId": "lane-4",
+            "heightPx": 152,
+            "nodeCount": 2,
+            "nodeIds": [
+              "tool_call",
+              "tool_result"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          },
+          {
+            "frameId": "lane-5",
+            "heightPx": 152,
+            "nodeCount": 2,
+            "nodeIds": [
+              "repo_evidence",
+              "trace_unknown"
+            ],
+            "nodeSpanPx": 76,
+            "spaceAboveNodesPx": 60,
+            "spaceBelowNodesPx": 16
+          }
+        ],
+        "minimumProjectedNodeTextPx": 6.9,
+        "minimumProjectedNonEdgeTextPx": 6.9,
+        "minimumProjectedEdgeTextPx": 8,
+        "minimumProjectedNodeText": "ปลายทางของเส้นทางสำเร็จ",
+        "minimumProjectedNodeTextDetail": "context",
+        "minimumProjectedNodeTextOwner": {
+          "kind": "node",
+          "id": "answer"
+        },
+        "minimumRequiredNodeTextPx": 6,
+        "readabilityOk": true,
+        "hasLegend": true,
+        "hasNavigationDock": true,
+        "legendDockIntersectionArea": 0,
+        "dockStageIntersectionArea": 0,
+        "dockStageGap": 10,
+        "requiredDockStageGap": 10,
+        "viewerChromeStageOk": true,
+        "viewerChromeReserve": 54,
+        "viewerChromeActive": true,
+        "viewerChromeOk": true,
+        "resolvedTheme": "light"
+      },
+      {
+        "width": 1920,
+        "height": 1080,
+        "theme": "light",
+        "innerWidth": 1920,
+        "innerHeight": 1080,
+        "scrollWidth": 1920,
+        "scrollHeight": 1559,
+        "overflowX": false,
+        "overflowY": true,
+        "verticalScrollAccepted": true,
+        "overflowDisposition": "readable-vertical-scroll",
+        "readerLayout": "adaptive",
+        "readerOverflow": "authored",
+        "readerFit": "width-first",
+        "ok": true,
+        "readerWidth": 1856,
+        "diagramWidth": 1542,
+        "pageComposition": {
+          "bodyPaddingPx": 64,
+          "headerPx": 60,
+          "diagramChromePx": 84,
+          "svgPx": 1350,
+          "cardsPx": 0,
+          "viewBoxHeight": 900
+        },
+        "viewBoxWidth": 1028,
+        "workflowLanes": [
+          {
+            "frameId": "lane-0",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "request",
+              "answer"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-1",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "agent",
+              "resume"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-2",
+            "heightPx": 156,
+            "nodeCount": 1,
+            "nodeIds": [
+              "policy"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-3",
+            "heightPx": 156,
+            "nodeCount": 3,
+            "nodeIds": [
+              "approval_unknown",
+              "blocked_unknown",
+              "retry_unknown"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-4",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "tool_call",
+              "tool_result"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-5",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "repo_evidence",
+              "trace_unknown"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          }
+        ],
+        "minimumProjectedNodeTextPx": 6.9,
+        "minimumProjectedNonEdgeTextPx": 6.9,
+        "minimumProjectedEdgeTextPx": 8,
+        "minimumProjectedNodeText": "ปลายทางของเส้นทางสำเร็จ",
+        "minimumProjectedNodeTextDetail": "context",
+        "minimumProjectedNodeTextOwner": {
+          "kind": "node",
+          "id": "answer"
+        },
+        "minimumRequiredNodeTextPx": 6,
+        "readabilityOk": true,
+        "hasLegend": true,
+        "hasNavigationDock": true,
+        "legendDockIntersectionArea": 0,
+        "dockStageIntersectionArea": 0,
+        "dockStageGap": 10,
+        "requiredDockStageGap": 10,
+        "viewerChromeStageOk": true,
+        "viewerChromeReserve": 54,
+        "viewerChromeActive": true,
+        "viewerChromeOk": true,
+        "resolvedTheme": "light"
+      },
+      {
+        "width": 2048,
+        "height": 1320,
+        "theme": "light",
+        "innerWidth": 2048,
+        "innerHeight": 1320,
+        "scrollWidth": 2048,
+        "scrollHeight": 1577,
+        "overflowX": false,
+        "overflowY": true,
+        "verticalScrollAccepted": true,
+        "overflowDisposition": "readable-vertical-scroll",
+        "readerLayout": "adaptive",
+        "readerOverflow": "authored",
+        "readerFit": "width-first",
+        "ok": true,
+        "readerWidth": 1920,
+        "diagramWidth": 1542,
+        "pageComposition": {
+          "bodyPaddingPx": 64,
+          "headerPx": 68,
+          "diagramChromePx": 94,
+          "svgPx": 1350,
+          "cardsPx": 0,
+          "viewBoxHeight": 900
+        },
+        "viewBoxWidth": 1028,
+        "workflowLanes": [
+          {
+            "frameId": "lane-0",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "request",
+              "answer"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-1",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "agent",
+              "resume"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-2",
+            "heightPx": 156,
+            "nodeCount": 1,
+            "nodeIds": [
+              "policy"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-3",
+            "heightPx": 156,
+            "nodeCount": 3,
+            "nodeIds": [
+              "approval_unknown",
+              "blocked_unknown",
+              "retry_unknown"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-4",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "tool_call",
+              "tool_result"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          },
+          {
+            "frameId": "lane-5",
+            "heightPx": 156,
+            "nodeCount": 2,
+            "nodeIds": [
+              "repo_evidence",
+              "trace_unknown"
+            ],
+            "nodeSpanPx": 78,
+            "spaceAboveNodesPx": 62,
+            "spaceBelowNodesPx": 17
+          }
+        ],
+        "minimumProjectedNodeTextPx": 6.9,
+        "minimumProjectedNonEdgeTextPx": 6.9,
+        "minimumProjectedEdgeTextPx": 8,
+        "minimumProjectedNodeText": "ปลายทางของเส้นทางสำเร็จ",
+        "minimumProjectedNodeTextDetail": "context",
+        "minimumProjectedNodeTextOwner": {
+          "kind": "node",
+          "id": "answer"
+        },
+        "minimumRequiredNodeTextPx": 6,
+        "readabilityOk": true,
+        "hasLegend": true,
+        "hasNavigationDock": true,
+        "legendDockIntersectionArea": 0,
+        "dockStageIntersectionArea": 0,
+        "dockStageGap": 10,
+        "requiredDockStageGap": 10,
+        "viewerChromeStageOk": true,
+        "viewerChromeReserve": 44,
+        "viewerChromeActive": true,
+        "viewerChromeOk": true,
+        "resolvedTheme": "light"
+      }
+    ]
+  },
+  "captures": {
+    "status": "not-requested",
+    "screenshots": [],
+    "contactSheet": null
+  },
+  "sidecars": {
+    "receipt": "agent-tool-call-v17.browser-check.json",
+    "files": []
+  }
+}

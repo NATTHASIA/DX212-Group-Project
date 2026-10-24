@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "workflow",
+  "quality": "showcase",
+  "specification": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+    "sha256": "b6155cd9e7f4826b4b6ef9a211b0c0c5f00e9a781dba4f9fbb8f3d28db7a3d97",
+    "bytes": 8656
+  },
+  "artifact": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v13.html"
+  },
+  "gates": {
+    "validate": "fail",
+    "deliver": "not-run",
+    "check": "not-run",
+    "browser-check": "not-run"
+  },
+  "failedStage": "validate",
+  "diagnostics": [
+    {
+      "code": "workflow/route-preset-conflict",
+      "severity": "error",
+      "message": "Workflow edge \"policy-tool\" cannot satisfy route preset \"drop\": candidate violates placed edge-label clearance.",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": "policy-tool",
+        "from": "policy",
+        "to": "tool_call",
+        "route": "drop"
+      },
+      "evidence": {
+        "invariant": "placed edge-label clearance",
+        "conflictType": "label-route",
+        "candidateEdge": {
+          "edge": "policy-tool",
+          "from": "policy",
+          "to": "tool_call",
+          "path": "/edges/4"
+        },
+        "otherEdge": {
+          "edge": "evidence-policy",
+          "from": "repo_evidence",
+          "to": "policy",
+          "path": "/edges/2"
+        },
+        "candidateLabel": {
+          "label": "เส้นทางหลักเชิงอธิบาย",
+          "rect": {
+            "x": 458.6,
+            "y": 456,
+            "width": 110.8,
+            "height": 14
+          }
+        },
+        "segment": {
+          "edge": "other",
+          "index": 1,
+          "from": [
+            461,
+            739
+          ],
+          "to": [
+            461,
+            393
+          ]
+        },
+        "measuredClearancePx": 0,
+        "requiredClearancePx": 4,
+        "attemptedCandidateFamily": "drop",
+        "points": [
+          [
+            454,
+            393
+          ],
+          [
+            454,
+            476
+          ],
+          [
+            574,
+            476
+          ],
+          [
+            574,
+            589
+          ]
+        ],
+        "fromSide": "bottom",
+        "toSide": "top",
+        "requiredEndpointStubPx": 8,
+        "requiredInteriorSegmentPx": 16,
+        "requiredDirectClearancePx": 28
+      }
+    }
+  ],
+  "diagnosticSummary": {
+    "total": 1,
+    "shown": 1,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v13.finalize.json",
+    "summaryReceipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v13.finalize-summary.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-23T14:55:34.268Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2168,
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "nextAction": {
+    "action": "edit-in-place",
+    "candidate": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+    "constraint": "Preserve unaffected semantics and geometry; apply each diagnostic's supportedFixes, or the fix its message names, and do not replace the whole candidate.",
+    "then": "finalize-once"
+  }
+}

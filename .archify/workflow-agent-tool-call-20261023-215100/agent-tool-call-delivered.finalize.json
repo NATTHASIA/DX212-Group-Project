@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "workflow",
+  "quality": "showcase",
+  "startedAt": "2026-10-23T14:59:18.720Z",
+  "specification": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+    "sha256": "1aea34790fdced55dbc808bb8b80f34cb9ecf347bea5d5c70bf11d02ff1d228c",
+    "bytes": 9021
+  },
+  "artifact": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-delivered.html"
+  },
+  "stages": {
+    "validate": {
+      "status": "fail",
+      "exitCode": 1,
+      "durationMs": null,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.agents\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "workflow",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-delivered.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": false,
+        "command": "deliver",
+        "receiptId": "97ec0bd5-9937-49ed-986e-a0f6587b9f25",
+        "stage": "render",
+        "type": "workflow",
+        "input": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+        "output": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-delivered.html",
+        "error": "Workflow edge \"result-resume\" cannot satisfy route preset \"straight\": candidate violates node clearance: segment 0 intersects node \"retry_unknown\".",
+        "diagnostics": [
+          {
+            "code": "workflow/route-preset-conflict",
+            "severity": "error",
+            "message": "Workflow edge \"result-resume\" cannot satisfy route preset \"straight\": candidate violates node clearance: segment 0 intersects node \"retry_unknown\".",
+            "subject": {
+              "diagramType": "workflow",
+              "edge": "result-resume",
+              "from": "tool_result",
+              "to": "resume",
+              "route": "straight"
+            },
+            "evidence": {
+              "invariant": "node clearance",
+              "obstacleNode": "retry_unknown",
+              "obstacleRole": "unrelated",
+              "segmentIndex": 0,
+              "from": [
+                764,
+                589
+              ],
+              "to": [
+                764,
+                269
+              ],
+              "clearancePx": 2,
+              "attemptedCandidateFamily": "straight",
+              "points": [
+                [
+                  764,
+                  589
+                ],
+                [
+                  764,
+                  269
+                ]
+              ],
+              "fromSide": "top",
+              "toSide": "bottom",
+              "requiredEndpointStubPx": 8,
+              "requiredInteriorSegmentPx": 16,
+              "requiredDirectClearancePx": 28
+            },
+            "supportedFixes": []
+          }
+        ],
+        "provenance": "absent",
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      },
+      "execution": "embedded-in-deliver"
+    },
+    "deliver": {
+      "status": "not-run",
+      "execution": "blocked-by-validate"
+    }
+  },
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "diagnostics": [
+    {
+      "code": "workflow/route-preset-conflict",
+      "severity": "error",
+      "message": "Workflow edge \"result-resume\" cannot satisfy route preset \"straight\": candidate violates node clearance: segment 0 intersects node \"retry_unknown\".",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": "result-resume",
+        "from": "tool_result",
+        "to": "resume",
+        "route": "straight"
+      },
+      "evidence": {
+        "invariant": "node clearance",
+        "obstacleNode": "retry_unknown",
+        "obstacleRole": "unrelated",
+        "segmentIndex": 0,
+        "from": [
+          764,
+          589
+        ],
+        "to": [
+          764,
+          269
+        ],
+        "clearancePx": 2,
+        "attemptedCandidateFamily": "straight",
+        "points": [
+          [
+            764,
+            589
+          ],
+          [
+            764,
+            269
+          ]
+        ],
+        "fromSide": "top",
+        "toSide": "bottom",
+        "requiredEndpointStubPx": 8,
+        "requiredInteriorSegmentPx": 16,
+        "requiredDirectClearancePx": 28
+      },
+      "supportedFixes": []
+    }
+  ],
+  "evidence": {
+    "receipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-delivered.finalize.json",
+    "summaryReceipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-delivered.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "failedStage": "validate",
+  "finishedAt": "2026-10-23T14:59:22.896Z",
+  "durationMs": 4175,
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-23T14:55:34.268Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  }
+}

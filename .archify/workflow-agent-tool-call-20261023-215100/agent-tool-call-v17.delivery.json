@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "c8a4078b-844b-4178-b621-c1bb5d0312d9",
+  "status": "current",
+  "command": "deliver",
+  "type": "workflow",
+  "input": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+  "output": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v17.html",
+  "specification": {
+    "sha256": "547026e7f9458370daa9f2e8d7f5edf08215c5589ba797e25ffe630d74e4940d",
+    "bytes": 8205
+  },
+  "artifact": {
+    "sha256": "b0934fc1e13840a8c10c9ee006fcb46772a436c98c2e01642b90d9e00d35fd8a",
+    "bytes": 839877
+  }
+}

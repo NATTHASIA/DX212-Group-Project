@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "workflow",
+  "quality": "showcase",
+  "startedAt": "2026-10-23T14:55:33.623Z",
+  "specification": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+    "sha256": "799c7fd04935f8d40a8c713d95e43661c0c44d46b5354549cba0111f7cbca9fb",
+    "bytes": 8996
+  },
+  "artifact": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call.html"
+  },
+  "stages": {
+    "validate": {
+      "status": "fail",
+      "exitCode": 1,
+      "durationMs": null,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.agents\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "workflow",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": false,
+        "command": "deliver",
+        "receiptId": "ee85cb7a-4f8c-45b2-a9c2-db5f04c2edc7",
+        "stage": "render",
+        "type": "workflow",
+        "input": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+        "output": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call.html",
+        "error": "Workflow edge \"resume-next-tool\" cannot satisfy route preset \"return-left\": candidate violates perpendicular endpoint-side direction.",
+        "diagnostics": [
+          {
+            "code": "i18n/locale-fallback",
+            "severity": "warning",
+            "message": "meta.locale \"th\" has no bundled catalog and no usable meta.translations; the Viewer chrome and <html lang> fall back to English.",
+            "subject": {
+              "diagramType": "workflow",
+              "path": "/meta/locale"
+            },
+            "evidence": {
+              "locale": "th",
+              "bundledLocales": [
+                "en",
+                "zh-CN",
+                "zh-TW",
+                "es",
+                "ko",
+                "ar"
+              ]
+            },
+            "supportedFixes": [
+              "Supply meta.translations for this locale.",
+              "Use a bundled locale: en, zh-CN, zh-TW, es, ko, ar."
+            ]
+          },
+          {
+            "code": "workflow/route-preset-conflict",
+            "severity": "error",
+            "message": "Workflow edge \"resume-next-tool\" cannot satisfy route preset \"return-left\": candidate violates perpendicular endpoint-side direction.",
+            "subject": {
+              "diagramType": "workflow",
+              "edge": "resume-next-tool",
+              "from": "resume",
+              "to": "tool_call",
+              "route": "return-left"
+            },
+            "evidence": {
+              "invariant": "perpendicular endpoint-side direction",
+              "attemptedCandidateFamily": "return-left",
+              "points": [
+                [
+                  772,
+                  243
+                ],
+                [
+                  346,
+                  243
+                ],
+                [
+                  346,
+                  615
+                ],
+                [
+                  566,
+                  615
+                ]
+              ],
+              "fromSide": "left",
+              "toSide": "right",
+              "requiredEndpointStubPx": 8,
+              "requiredInteriorSegmentPx": 16,
+              "requiredDirectClearancePx": 28
+            },
+            "supportedFixes": []
+          }
+        ],
+        "provenance": "absent",
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      },
+      "execution": "embedded-in-deliver"
+    },
+    "deliver": {
+      "status": "not-run",
+      "execution": "blocked-by-validate"
+    }
+  },
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "diagnostics": [
+    {
+      "code": "i18n/locale-fallback",
+      "severity": "warning",
+      "message": "meta.locale \"th\" has no bundled catalog and no usable meta.translations; the Viewer chrome and <html lang> fall back to English.",
+      "subject": {
+        "diagramType": "workflow",
+        "path": "/meta/locale"
+      },
+      "evidence": {
+        "locale": "th",
+        "bundledLocales": [
+          "en",
+          "zh-CN",
+          "zh-TW",
+          "es",
+          "ko",
+          "ar"
+        ]
+      },
+      "supportedFixes": [
+        "Supply meta.translations for this locale.",
+        "Use a bundled locale: en, zh-CN, zh-TW, es, ko, ar."
+      ]
+    },
+    {
+      "code": "workflow/route-preset-conflict",
+      "severity": "error",
+      "message": "Workflow edge \"resume-next-tool\" cannot satisfy route preset \"return-left\": candidate violates perpendicular endpoint-side direction.",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": "resume-next-tool",
+        "from": "resume",
+        "to": "tool_call",
+        "route": "return-left"
+      },
+      "evidence": {
+        "invariant": "perpendicular endpoint-side direction",
+        "attemptedCandidateFamily": "return-left",
+        "points": [
+          [
+            772,
+            243
+          ],
+          [
+            346,
+            243
+          ],
+          [
+            346,
+            615
+          ],
+          [
+            566,
+            615
+          ]
+        ],
+        "fromSide": "left",
+        "toSide": "right",
+        "requiredEndpointStubPx": 8,
+        "requiredInteriorSegmentPx": 16,
+        "requiredDirectClearancePx": 28
+      },
+      "supportedFixes": []
+    }
+  ],
+  "evidence": {
+    "receipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call.finalize.json",
+    "summaryReceipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "failedStage": "validate",
+  "finishedAt": "2026-10-23T14:55:39.433Z",
+  "durationMs": 5809,
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-23T14:55:34.268Z",
+    "source": "network",
+    "noticeRequired": false,
+    "noticeText": null
+  }
+}

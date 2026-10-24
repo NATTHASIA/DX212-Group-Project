@@ -93,9 +93,11 @@ export default function WelcomeScreen() {
         <TouchableOpacity 
           style={styles.signupButton}
           activeOpacity={0.8}
-          onPress={() => router.push('/signup')} // กดแล้วไปหน้า signup
+          // 🟢 1. เปลี่ยนเป้าหมายให้กดแล้วไปหน้า login แทน
+          onPress={() => router.push('/login')}
         >
-          <Text style={styles.signupButtonText}>Sign up</Text>
+          {/* 🟢 2. เปลี่ยนคำบนปุ่มเป็น Log In เพื่อให้ผู้ใช้ไม่งง */}
+          <Text style={styles.signupButtonText}>Sign In</Text>
         </TouchableOpacity>
       </View>
 

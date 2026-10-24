@@ -23,7 +23,8 @@ export default function RootLayout() {
           // 🟢 2. แยกทางเดินตามผลลัพธ์
           if (data && data.username) {
             console.log('ผู้ใช้เก่า: พาไปหน้า Home...');
-            router.replace('/home'); 
+            // 👇 เปลี่ยนให้วิ่งเข้าไปในโฟลเดอร์ (tabs) เพื่อให้เมนูด้านล่างโชว์
+            router.replace('/(tabs)/home'); 
           } else {
             console.log('ผู้ใช้ใหม่: พาไปหน้าตั้งชื่อ...');
             router.replace('/username'); 
@@ -52,7 +53,10 @@ export default function RootLayout() {
         <Stack.Screen name="index" />
         <Stack.Screen name="signup" />
         <Stack.Screen name="username" />
-        <Stack.Screen name="home" />
+        <Stack.Screen name="otp" />
+        
+        {/* 👇 เปลี่ยนจาก "home" เป็น "(tabs)" เพื่อบอกระบบว่ามีหน้าที่มีเมนูด้านล่าง */}
+        <Stack.Screen name="(tabs)" />
         
         {/* หน้า Add New List เด้งขึ้นมาแบบ modal */}
         <Stack.Screen name="add" options={{ presentation: 'modal' }} />

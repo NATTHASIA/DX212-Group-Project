@@ -1,0 +1,170 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "วงจรเรียกเครื่องมือของเอเจนต์: ขอบเขตหลักฐานในรีโป",
+    "quality_profile": "showcase",
+    "output": ".archify/workflow-agent-tool-call-20261023-215100/agent-tool-call-v17.html",
+    "repository": {
+      "url": "https://github.com/NATTHASIA/DX212-Group-Project.git",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "f777f2a9fd7a9b4ec0ac7b2b1e856d5507c6736c"
+    }
+  },
+  "lanes": [
+    { "id": "user_surface", "label": "หน้าผู้ใช้" },
+    { "id": "agent_runtime", "label": "Agent runtime" },
+    { "id": "policy_boundary", "label": "ขอบเขตนโยบาย" },
+    { "id": "exception_handling", "label": "ข้อยกเว้น / ยังไม่ยืนยัน", "variant": "exception" },
+    { "id": "tool_execution", "label": "การเรียกเครื่องมือ" },
+    { "id": "observability", "label": "หลักฐาน / การสังเกตการณ์" }
+  ],
+  "phases": [
+    { "id": "request_phase", "label": "รับคำขอและตรวจบริบท", "fromCol": 0, "toCol": 2 },
+    { "id": "tool_phase", "label": "เรียกใช้และรับผล", "fromCol": 3, "toCol": 4, "variant": "emphasis" },
+    { "id": "response_phase", "label": "ดำเนินต่อหรือส่งคำตอบ", "fromCol": 5, "toCol": 5 }
+  ],
+  "groups": [
+    { "id": "runtime_loop", "label": "โครงวงจรอธิบาย; runtime จริงไม่อยู่ใน source แอป", "lane": "agent_runtime", "fromCol": 1, "toCol": 5, "variant": "emphasis" }
+  ],
+  "mainPath": ["request", "agent", "policy", "tool_call", "tool_result", "resume", "answer"],
+  "nodes": [
+    {
+      "id": "request",
+      "lane": "user_surface",
+      "col": 0,
+      "type": "external",
+      "label": "คำขอจากผู้ใช้",
+      "sublabel": "จุดเริ่มต้นของวงจรอธิบาย"
+    },
+    {
+      "id": "agent",
+      "lane": "agent_runtime",
+      "col": 1,
+      "type": "backend",
+      "label": "Agent รับบริบท",
+      "sublabel": "กลไก runtime ไม่ได้ระบุในแอปนี้"
+    },
+    {
+      "id": "repo_evidence",
+      "lane": "observability",
+      "col": 1,
+      "type": "backend",
+      "label": "อ่านหลักฐานในรีโป",
+      "sublabel": "AGENTS.md และ manifest",
+      "sources": [
+        { "path": "AGENTS.md", "line": 1, "end_line": 10 },
+        { "path": "package.json", "line": 1, "end_line": 3 }
+      ]
+    },
+    {
+      "id": "policy",
+      "lane": "policy_boundary",
+      "col": 2,
+      "type": "security",
+      "label": "กฎงานของโปรเจกต์",
+      "sublabel": "Expo: ตรวจเวอร์ชัน/เอกสาร และ lint/typecheck",
+      "sources": [
+        { "path": "AGENTS.md", "line": 5, "end_line": 10 },
+        { "path": "AGENTS.md", "line": 18, "end_line": 24 }
+      ]
+    },
+    {
+      "id": "approval_unknown",
+      "lane": "exception_handling",
+      "col": 0,
+      "type": "security",
+      "label": "Approval?",
+      "sublabel": "ไม่พบสัญญาอนุมัติใน source ที่ตรวจ"
+    },
+    {
+      "id": "tool_call",
+      "lane": "tool_execution",
+      "col": 3,
+      "type": "messagebus",
+      "label": "เรียกเครื่องมือ",
+      "sublabel": "ตัว dispatcher ไม่ได้อยู่ใน source แอป"
+    },
+    {
+      "id": "tool_result",
+      "lane": "tool_execution",
+      "col": 4,
+      "type": "backend",
+      "label": "ผลลัพธ์เครื่องมือ",
+      "sublabel": "ส่งกลับให้ runtime (ภาพอธิบาย)"
+    },
+    {
+      "id": "trace_unknown",
+      "lane": "observability",
+      "col": 3,
+      "type": "backend",
+      "label": "Trace / log?",
+      "sublabel": "การบันทึกผลไม่ระบุใน source ที่ตรวจ"
+    },
+    {
+      "id": "retry_unknown",
+      "lane": "exception_handling",
+      "col": 5,
+      "type": "messagebus",
+      "label": "Retry?",
+      "sublabel": "ไม่พบกฎลองซ้ำอัตโนมัติ"
+    },
+    {
+      "id": "blocked_unknown",
+      "lane": "exception_handling",
+      "col": 1,
+      "type": "security",
+      "label": "Blocked?",
+      "sublabel": "สถานะ/ทางออกเมื่อถูกบล็อกไม่ระบุ"
+    },
+    {
+      "id": "resume",
+      "lane": "agent_runtime",
+      "col": 4,
+      "type": "backend",
+      "label": "ประเมินผล",
+      "sublabel": "อาจจบหรือเรียกครั้งถัดไป; ยังไม่ยืนยัน"
+    },
+    {
+      "id": "answer",
+      "lane": "user_surface",
+      "col": 5,
+      "type": "external",
+      "label": "คำตอบกลับผู้ใช้",
+      "sublabel": "ปลายทางของเส้นทางสำเร็จ"
+    }
+  ],
+  "edges": [
+    { "id": "request-agent", "from": "request", "to": "agent", "label": "ส่งคำขอ", "variant": "emphasis" },
+    { "id": "agent-evidence", "from": "agent", "to": "repo_evidence", "label": "ตรวจบริบท/ข้อกำหนด", "variant": "dashed" },
+    { "id": "agent-policy", "from": "agent", "to": "policy", "label": "ตรวจขอบเขตงาน" },
+    { "id": "policy-tool", "from": "policy", "to": "tool_call", "variant": "emphasis" },
+    { "id": "policy-approval-unknown", "from": "policy", "to": "approval_unknown", "variant": "dashed", "role": "branch" },
+    { "id": "tool-result", "from": "tool_call", "to": "tool_result", "label": "ผลการทำงาน", "variant": "emphasis", "role": "return" },
+    { "id": "tool-observability", "from": "tool_call", "to": "trace_unknown", "variant": "dashed", "role": "branch" },
+    { "id": "result-retry-unknown", "from": "tool_result", "to": "retry_unknown", "label": "เมื่อผิดพลาด: retry ไม่ระบุ", "variant": "dashed", "role": "error" },
+    { "id": "result-blocked-unknown", "from": "tool_result", "to": "blocked_unknown", "variant": "dashed", "role": "error" },
+    { "id": "result-resume", "from": "tool_result", "to": "resume", "variant": "emphasis", "role": "return", "fromSide": "top", "toSide": "bottom", "route": "straight" },
+    { "id": "resume-next-tool", "from": "resume", "to": "tool_call", "label": "รอบถัดไป (วงจรอธิบาย)", "variant": "dashed", "role": "return" },
+    { "id": "resume-answer", "from": "resume", "to": "answer", "label": "จบงาน", "variant": "emphasis" }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "ส่วนที่ยืนยันจาก source",
+      "items": [
+        "รีโปเป็นแอป Expo; AGENTS.md กำหนดให้ตรวจเอกสารตาม SDK และรัน lint/typecheck ก่อนจบงาน",
+        "เส้น request → tool → result → response เป็นกรอบอธิบาย ไม่ใช่ implementation ที่พบในแอป"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "ขอบเขตที่ยังไม่ทราบ",
+      "items": [
+        "ไม่พบ agent runtime/tool dispatcher ใน source แอปที่ตรวจ",
+        "การอนุมัติ, retry, สถานะ blocked และการเก็บ trace/log ไม่มีสัญญาพฤติกรรมที่ยืนยันได้จาก source ที่อ้าง"
+      ]
+    }
+  ]
+}

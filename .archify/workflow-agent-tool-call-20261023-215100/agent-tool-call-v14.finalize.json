@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "workflow",
+  "quality": "showcase",
+  "startedAt": "2026-10-23T15:04:07.823Z",
+  "specification": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+    "sha256": "a41c938772f918f81567e6032ed5c0f50f3c0ee1ff0fd24f2d159851957a9404",
+    "bytes": 8580
+  },
+  "artifact": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v14.html"
+  },
+  "stages": {
+    "validate": {
+      "status": "fail",
+      "exitCode": 1,
+      "durationMs": null,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.agents\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "workflow",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v14.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": false,
+        "command": "deliver",
+        "receiptId": "f06fc8d5-ce8c-4572-84df-80f65132f107",
+        "stage": "render",
+        "type": "workflow",
+        "input": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+        "output": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v14.html",
+        "error": "Workflow edge \"result-blocked-unknown\" cannot satisfy route preset \"bottom-channel\": candidate violates placed edge-label clearance.",
+        "diagnostics": [
+          {
+            "code": "workflow/route-preset-conflict",
+            "severity": "error",
+            "message": "Workflow edge \"result-blocked-unknown\" cannot satisfy route preset \"bottom-channel\": candidate violates placed edge-label clearance.",
+            "subject": {
+              "diagramType": "workflow",
+              "edge": "result-blocked-unknown",
+              "from": "tool_result",
+              "to": "blocked_unknown",
+              "route": "bottom-channel"
+            },
+            "evidence": {
+              "invariant": "placed edge-label clearance",
+              "conflictType": "route-label",
+              "candidateEdge": {
+                "edge": "result-blocked-unknown",
+                "from": "tool_result",
+                "to": "blocked_unknown",
+                "path": "/edges/9"
+              },
+              "otherEdge": {
+                "edge": "policy-approval-unknown",
+                "from": "policy",
+                "to": "approval_unknown",
+                "path": "/edges/5"
+              },
+              "otherLabel": {
+                "label": "ถ้าต้องอนุมัติ: ไม่ทราบ",
+                "rect": {
+                  "x": 227.8,
+                  "y": 524,
+                  "width": 120.39999999999999,
+                  "height": 14
+                }
+              },
+              "segment": {
+                "edge": "candidate",
+                "index": 2,
+                "from": [
+                  334,
+                  673
+                ],
+                "to": [
+                  334,
+                  517
+                ]
+              },
+              "measuredClearancePx": 0,
+              "requiredClearancePx": 4,
+              "attemptedCandidateFamily": "bottom-channel",
+              "points": [
+                [
+                  812,
+                  641
+                ],
+                [
+                  812,
+                  673
+                ],
+                [
+                  334,
+                  673
+                ],
+                [
+                  334,
+                  517
+                ]
+              ],
+              "fromSide": "bottom",
+              "toSide": "bottom",
+              "requiredEndpointStubPx": 8,
+              "requiredInteriorSegmentPx": 16,
+              "requiredDirectClearancePx": 28
+            },
+            "supportedFixes": []
+          }
+        ],
+        "provenance": "absent",
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      },
+      "execution": "embedded-in-deliver"
+    },
+    "deliver": {
+      "status": "not-run",
+      "execution": "blocked-by-validate"
+    }
+  },
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "diagnostics": [
+    {
+      "code": "workflow/route-preset-conflict",
+      "severity": "error",
+      "message": "Workflow edge \"result-blocked-unknown\" cannot satisfy route preset \"bottom-channel\": candidate violates placed edge-label clearance.",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": "result-blocked-unknown",
+        "from": "tool_result",
+        "to": "blocked_unknown",
+        "route": "bottom-channel"
+      },
+      "evidence": {
+        "invariant": "placed edge-label clearance",
+        "conflictType": "route-label",
+        "candidateEdge": {
+          "edge": "result-blocked-unknown",
+          "from": "tool_result",
+          "to": "blocked_unknown",
+          "path": "/edges/9"
+        },
+        "otherEdge": {
+          "edge": "policy-approval-unknown",
+          "from": "policy",
+          "to": "approval_unknown",
+          "path": "/edges/5"
+        },
+        "otherLabel": {
+          "label": "ถ้าต้องอนุมัติ: ไม่ทราบ",
+          "rect": {
+            "x": 227.8,
+            "y": 524,
+            "width": 120.39999999999999,
+            "height": 14
+          }
+        },
+        "segment": {
+          "edge": "candidate",
+          "index": 2,
+          "from": [
+            334,
+            673
+          ],
+          "to": [
+            334,
+            517
+          ]
+        },
+        "measuredClearancePx": 0,
+        "requiredClearancePx": 4,
+        "attemptedCandidateFamily": "bottom-channel",
+        "points": [
+          [
+            812,
+            641
+          ],
+          [
+            812,
+            673
+          ],
+          [
+            334,
+            673
+          ],
+          [
+            334,
+            517
+          ]
+        ],
+        "fromSide": "bottom",
+        "toSide": "bottom",
+        "requiredEndpointStubPx": 8,
+        "requiredInteriorSegmentPx": 16,
+        "requiredDirectClearancePx": 28
+      },
+      "supportedFixes": []
+    }
+  ],
+  "evidence": {
+    "receipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v14.finalize.json",
+    "summaryReceipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v14.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "failedStage": "validate",
+  "finishedAt": "2026-10-23T15:04:09.919Z",
+  "durationMs": 2096,
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-23T14:55:34.268Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  }
+}

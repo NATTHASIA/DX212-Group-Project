@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "workflow",
+  "quality": "showcase",
+  "specification": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+    "sha256": "71fe3c40af5ed57bd412180ef3da598ee72353e6eca31a61e41ff9081f1dec9d",
+    "bytes": 8803
+  },
+  "artifact": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v7.html"
+  },
+  "gates": {
+    "validate": "fail",
+    "deliver": "not-run",
+    "check": "not-run",
+    "browser-check": "not-run"
+  },
+  "failedStage": "validate",
+  "diagnostics": [
+    {
+      "code": "workflow/explicit-pin-conflict",
+      "severity": "error",
+      "message": "Workflow edge \"policy-tool\" has explicit geometry that violates explicit route-route crossing.",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": "policy-tool",
+        "from": "policy",
+        "to": "tool_call"
+      },
+      "evidence": {
+        "invariant": "explicit route-route crossing",
+        "conflictingPins": [
+          {
+            "edge": "policy-tool",
+            "field": "route",
+            "path": "/edges/4/route",
+            "value": "drop"
+          },
+          {
+            "edge": "policy-tool",
+            "field": "fromSide",
+            "path": "/edges/4/fromSide",
+            "value": "bottom"
+          },
+          {
+            "edge": "policy-tool",
+            "field": "toSide",
+            "path": "/edges/4/toSide",
+            "value": "top"
+          }
+        ],
+        "point": [
+          594,
+          573
+        ],
+        "segmentIndex": 2,
+        "otherSegmentIndex": 1,
+        "routeSegments": [
+          {
+            "edge": "policy-tool",
+            "from": [
+              594,
+              476
+            ],
+            "to": [
+              594,
+              589
+            ]
+          },
+          {
+            "edge": "result-retry-unknown",
+            "from": [
+              808,
+              573
+            ],
+            "to": [
+              576,
+              573
+            ]
+          }
+        ],
+        "sourceRouteSegments": [
+          {
+            "edge": "policy-tool",
+            "from": [
+              594,
+              476
+            ],
+            "to": [
+              594,
+              589
+            ]
+          },
+          {
+            "edge": "result-retry-unknown",
+            "from": [
+              808,
+              573
+            ],
+            "to": [
+              576,
+              573
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "diagnosticSummary": {
+    "total": 1,
+    "shown": 1,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v7.finalize.json",
+    "summaryReceipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v7.finalize-summary.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-23T14:55:34.268Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 9953,
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "nextAction": {
+    "action": "edit-in-place",
+    "candidate": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+    "constraint": "Preserve unaffected semantics and geometry; apply each diagnostic's supportedFixes, or the fix its message names, and do not replace the whole candidate.",
+    "then": "finalize-once"
+  }
+}

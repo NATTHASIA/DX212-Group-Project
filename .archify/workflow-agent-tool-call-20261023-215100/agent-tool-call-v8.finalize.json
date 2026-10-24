@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "workflow",
+  "quality": "showcase",
+  "startedAt": "2026-10-23T15:01:46.605Z",
+  "specification": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+    "sha256": "e6741b021716297896ee9e909cced9fc2c6239e1c91263d06ccf78bf5046c2ad",
+    "bytes": 8738
+  },
+  "artifact": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v8.html"
+  },
+  "stages": {
+    "validate": {
+      "status": "fail",
+      "exitCode": 1,
+      "durationMs": null,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.agents\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "workflow",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v8.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": false,
+        "command": "deliver",
+        "receiptId": "7f894095-85fa-4b31-8f4a-46b0cc53b3f7",
+        "stage": "render",
+        "type": "workflow",
+        "input": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+        "output": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v8.html",
+        "error": "Workflow nodes \"approval_unknown\" and \"blocked_unknown\" are less than 8px apart in lane \"exception_handling\".",
+        "diagnostics": [
+          {
+            "code": "workflow/node-overlap",
+            "severity": "error",
+            "message": "Workflow nodes \"approval_unknown\" and \"blocked_unknown\" are less than 8px apart in lane \"exception_handling\".",
+            "subject": {
+              "diagramType": "workflow",
+              "node": "blocked_unknown",
+              "path": "/nodes/9"
+            },
+            "evidence": {
+              "lane": "exception_handling",
+              "minimumClearancePx": 8,
+              "nodes": [
+                {
+                  "id": "approval_unknown",
+                  "rect": {
+                    "x": 48,
+                    "y": 465,
+                    "width": 172,
+                    "height": 52
+                  }
+                },
+                {
+                  "id": "blocked_unknown",
+                  "rect": {
+                    "x": 52,
+                    "y": 465,
+                    "width": 164,
+                    "height": 52
+                  }
+                }
+              ]
+            },
+            "supportedFixes": []
+          }
+        ],
+        "provenance": "absent",
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      },
+      "execution": "embedded-in-deliver"
+    },
+    "deliver": {
+      "status": "not-run",
+      "execution": "blocked-by-validate"
+    }
+  },
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "diagnostics": [
+    {
+      "code": "workflow/node-overlap",
+      "severity": "error",
+      "message": "Workflow nodes \"approval_unknown\" and \"blocked_unknown\" are less than 8px apart in lane \"exception_handling\".",
+      "subject": {
+        "diagramType": "workflow",
+        "node": "blocked_unknown",
+        "path": "/nodes/9"
+      },
+      "evidence": {
+        "lane": "exception_handling",
+        "minimumClearancePx": 8,
+        "nodes": [
+          {
+            "id": "approval_unknown",
+            "rect": {
+              "x": 48,
+              "y": 465,
+              "width": 172,
+              "height": 52
+            }
+          },
+          {
+            "id": "blocked_unknown",
+            "rect": {
+              "x": 52,
+              "y": 465,
+              "width": 164,
+              "height": 52
+            }
+          }
+        ]
+      },
+      "supportedFixes": []
+    }
+  ],
+  "evidence": {
+    "receipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v8.finalize.json",
+    "summaryReceipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v8.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "failedStage": "validate",
+  "finishedAt": "2026-10-23T15:01:49.294Z",
+  "durationMs": 2688,
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-23T14:55:34.268Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  }
+}

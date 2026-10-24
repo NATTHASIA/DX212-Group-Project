@@ -1,0 +1,231 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "workflow",
+  "quality": "showcase",
+  "startedAt": "2026-10-23T14:57:50.492Z",
+  "specification": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+    "sha256": "998019a505a3cc00d2fedcd03af76d33560eae2b0dff234101e5e8395e034060",
+    "bytes": 8960
+  },
+  "artifact": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-verified.html"
+  },
+  "stages": {
+    "validate": {
+      "status": "fail",
+      "exitCode": 1,
+      "durationMs": null,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.agents\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "workflow",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-verified.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": false,
+        "command": "deliver",
+        "receiptId": "192bc49d-335d-4a8d-89a6-0d872c285fd9",
+        "stage": "render",
+        "type": "workflow",
+        "input": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+        "output": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-verified.html",
+        "error": "Workflow layout validation failed:\n- [composition/proper-crossing] showcase workflow edges[7] id \"tool-observability\" \"tool_call\" -> \"trace_unknown\" crosses edges[11] id \"resume-next-tool\" \"resume\" -> \"tool_call\" at [470, 689] (segments 0 and 3) — adjust route/via, bias, or channel coordinates so the edges use separate lane corridors.\n- [composition/ambiguous-corridor] showcase workflow edges[4] id \"policy-tool\" \"policy\" -> \"tool_call\" shares a 270px corridor with edges[10] id \"result-resume\" \"tool_result\" -> \"resume\" at [718, 657] -> [988, 657] (segments 3 and 1; minimum 8px) — adjust route/via, bias, or channel coordinates so unrelated edges do not visually merge.",
+        "diagnostics": [
+          {
+            "code": "composition/proper-crossing",
+            "severity": "error",
+            "message": "[composition/proper-crossing] showcase workflow edges[7] id \"tool-observability\" \"tool_call\" -> \"trace_unknown\" crosses edges[11] id \"resume-next-tool\" \"resume\" -> \"tool_call\" at [470, 689] (segments 0 and 3) — adjust route/via, bias, or channel coordinates so the edges use separate lane corridors.",
+            "subject": {
+              "diagramType": "workflow",
+              "collection": "edges",
+              "index": 7,
+              "id": "tool-observability",
+              "from": "tool_call",
+              "to": "trace_unknown"
+            },
+            "evidence": {
+              "otherRelationship": {
+                "diagramType": "workflow",
+                "collection": "edges",
+                "index": 11,
+                "id": "resume-next-tool",
+                "from": "resume",
+                "to": "tool_call"
+              },
+              "point": [
+                470,
+                689
+              ],
+              "segmentIndex": 0,
+              "otherSegmentIndex": 3
+            },
+            "supportedFixes": [
+              "adjust route/via, bias, or channel coordinates so the edges use separate lane corridors"
+            ]
+          },
+          {
+            "code": "composition/ambiguous-corridor",
+            "severity": "error",
+            "message": "[composition/ambiguous-corridor] showcase workflow edges[4] id \"policy-tool\" \"policy\" -> \"tool_call\" shares a 270px corridor with edges[10] id \"result-resume\" \"tool_result\" -> \"resume\" at [718, 657] -> [988, 657] (segments 3 and 1; minimum 8px) — adjust route/via, bias, or channel coordinates so unrelated edges do not visually merge.",
+            "subject": {
+              "diagramType": "workflow",
+              "collection": "edges",
+              "index": 4,
+              "id": "policy-tool",
+              "from": "policy",
+              "to": "tool_call"
+            },
+            "evidence": {
+              "otherRelationship": {
+                "diagramType": "workflow",
+                "collection": "edges",
+                "index": 10,
+                "id": "result-resume",
+                "from": "tool_result",
+                "to": "resume"
+              },
+              "overlapLengthPx": 270,
+              "minimumPx": 8,
+              "from": [
+                718,
+                657
+              ],
+              "to": [
+                988,
+                657
+              ],
+              "segmentIndex": 3,
+              "otherSegmentIndex": 1
+            },
+            "supportedFixes": [
+              "adjust route/via, bias, or channel coordinates so unrelated edges do not visually merge"
+            ]
+          }
+        ],
+        "provenance": "absent",
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      },
+      "execution": "embedded-in-deliver"
+    },
+    "deliver": {
+      "status": "not-run",
+      "execution": "blocked-by-validate"
+    }
+  },
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "diagnostics": [
+    {
+      "code": "composition/proper-crossing",
+      "severity": "error",
+      "message": "[composition/proper-crossing] showcase workflow edges[7] id \"tool-observability\" \"tool_call\" -> \"trace_unknown\" crosses edges[11] id \"resume-next-tool\" \"resume\" -> \"tool_call\" at [470, 689] (segments 0 and 3) — adjust route/via, bias, or channel coordinates so the edges use separate lane corridors.",
+      "subject": {
+        "diagramType": "workflow",
+        "collection": "edges",
+        "index": 7,
+        "id": "tool-observability",
+        "from": "tool_call",
+        "to": "trace_unknown"
+      },
+      "evidence": {
+        "otherRelationship": {
+          "diagramType": "workflow",
+          "collection": "edges",
+          "index": 11,
+          "id": "resume-next-tool",
+          "from": "resume",
+          "to": "tool_call"
+        },
+        "point": [
+          470,
+          689
+        ],
+        "segmentIndex": 0,
+        "otherSegmentIndex": 3
+      },
+      "supportedFixes": [
+        "adjust route/via, bias, or channel coordinates so the edges use separate lane corridors"
+      ]
+    },
+    {
+      "code": "composition/ambiguous-corridor",
+      "severity": "error",
+      "message": "[composition/ambiguous-corridor] showcase workflow edges[4] id \"policy-tool\" \"policy\" -> \"tool_call\" shares a 270px corridor with edges[10] id \"result-resume\" \"tool_result\" -> \"resume\" at [718, 657] -> [988, 657] (segments 3 and 1; minimum 8px) — adjust route/via, bias, or channel coordinates so unrelated edges do not visually merge.",
+      "subject": {
+        "diagramType": "workflow",
+        "collection": "edges",
+        "index": 4,
+        "id": "policy-tool",
+        "from": "policy",
+        "to": "tool_call"
+      },
+      "evidence": {
+        "otherRelationship": {
+          "diagramType": "workflow",
+          "collection": "edges",
+          "index": 10,
+          "id": "result-resume",
+          "from": "tool_result",
+          "to": "resume"
+        },
+        "overlapLengthPx": 270,
+        "minimumPx": 8,
+        "from": [
+          718,
+          657
+        ],
+        "to": [
+          988,
+          657
+        ],
+        "segmentIndex": 3,
+        "otherSegmentIndex": 1
+      },
+      "supportedFixes": [
+        "adjust route/via, bias, or channel coordinates so unrelated edges do not visually merge"
+      ]
+    }
+  ],
+  "evidence": {
+    "receipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-verified.finalize.json",
+    "summaryReceipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-verified.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "failedStage": "validate",
+  "finishedAt": "2026-10-23T14:57:54.254Z",
+  "durationMs": 3762,
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-23T14:55:34.268Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  }
+}

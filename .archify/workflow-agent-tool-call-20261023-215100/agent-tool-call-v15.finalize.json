@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "workflow",
+  "quality": "showcase",
+  "startedAt": "2026-10-23T15:04:23.519Z",
+  "specification": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+    "sha256": "26406d34d1d37a91518fd4270674c90de3417ec8b63dff036a3b043292f0ec83",
+    "bytes": 8502
+  },
+  "artifact": {
+    "path": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v15.html"
+  },
+  "stages": {
+    "validate": {
+      "status": "fail",
+      "exitCode": 1,
+      "durationMs": null,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.agents\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "workflow",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v15.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": false,
+        "command": "deliver",
+        "receiptId": "dc5a3e88-69db-494c-bb3e-33865606fbc4",
+        "stage": "render",
+        "type": "workflow",
+        "input": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\candidate.json",
+        "output": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v15.html",
+        "error": "Workflow edge \"result-blocked-unknown\" has explicit geometry that violates explicit route-route crossing.",
+        "diagnostics": [
+          {
+            "code": "workflow/explicit-pin-conflict",
+            "severity": "error",
+            "message": "Workflow edge \"result-blocked-unknown\" has explicit geometry that violates explicit route-route crossing.",
+            "subject": {
+              "diagramType": "workflow",
+              "edge": "result-blocked-unknown",
+              "from": "tool_result",
+              "to": "blocked_unknown"
+            },
+            "evidence": {
+              "invariant": "explicit route-route crossing",
+              "conflictingPins": [
+                {
+                  "edge": "result-blocked-unknown",
+                  "field": "route",
+                  "path": "/edges/9/route",
+                  "value": "bottom-channel"
+                },
+                {
+                  "edge": "result-blocked-unknown",
+                  "field": "fromSide",
+                  "path": "/edges/9/fromSide",
+                  "value": "bottom"
+                },
+                {
+                  "edge": "result-blocked-unknown",
+                  "field": "toSide",
+                  "path": "/edges/9/toSide",
+                  "value": "bottom"
+                }
+              ],
+              "point": [
+                461,
+                673
+              ],
+              "segmentIndex": 1,
+              "otherSegmentIndex": 1,
+              "routeSegments": [
+                {
+                  "edge": "evidence-policy",
+                  "from": [
+                    461,
+                    739
+                  ],
+                  "to": [
+                    461,
+                    393
+                  ]
+                },
+                {
+                  "edge": "result-blocked-unknown",
+                  "from": [
+                    812,
+                    673
+                  ],
+                  "to": [
+                    334,
+                    673
+                  ]
+                }
+              ],
+              "sourceRouteSegments": [
+                {
+                  "edge": "evidence-policy",
+                  "from": [
+                    461,
+                    739
+                  ],
+                  "to": [
+                    461,
+                    393
+                  ]
+                },
+                {
+                  "edge": "result-blocked-unknown",
+                  "from": [
+                    812,
+                    673
+                  ],
+                  "to": [
+                    334,
+                    673
+                  ]
+                }
+              ]
+            },
+            "supportedFixes": []
+          }
+        ],
+        "provenance": "absent",
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      },
+      "execution": "embedded-in-deliver"
+    },
+    "deliver": {
+      "status": "not-run",
+      "execution": "blocked-by-validate"
+    }
+  },
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "diagnostics": [
+    {
+      "code": "workflow/explicit-pin-conflict",
+      "severity": "error",
+      "message": "Workflow edge \"result-blocked-unknown\" has explicit geometry that violates explicit route-route crossing.",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": "result-blocked-unknown",
+        "from": "tool_result",
+        "to": "blocked_unknown"
+      },
+      "evidence": {
+        "invariant": "explicit route-route crossing",
+        "conflictingPins": [
+          {
+            "edge": "result-blocked-unknown",
+            "field": "route",
+            "path": "/edges/9/route",
+            "value": "bottom-channel"
+          },
+          {
+            "edge": "result-blocked-unknown",
+            "field": "fromSide",
+            "path": "/edges/9/fromSide",
+            "value": "bottom"
+          },
+          {
+            "edge": "result-blocked-unknown",
+            "field": "toSide",
+            "path": "/edges/9/toSide",
+            "value": "bottom"
+          }
+        ],
+        "point": [
+          461,
+          673
+        ],
+        "segmentIndex": 1,
+        "otherSegmentIndex": 1,
+        "routeSegments": [
+          {
+            "edge": "evidence-policy",
+            "from": [
+              461,
+              739
+            ],
+            "to": [
+              461,
+              393
+            ]
+          },
+          {
+            "edge": "result-blocked-unknown",
+            "from": [
+              812,
+              673
+            ],
+            "to": [
+              334,
+              673
+            ]
+          }
+        ],
+        "sourceRouteSegments": [
+          {
+            "edge": "evidence-policy",
+            "from": [
+              461,
+              739
+            ],
+            "to": [
+              461,
+              393
+            ]
+          },
+          {
+            "edge": "result-blocked-unknown",
+            "from": [
+              812,
+              673
+            ],
+            "to": [
+              334,
+              673
+            ]
+          }
+        ]
+      },
+      "supportedFixes": []
+    }
+  ],
+  "evidence": {
+    "receipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v15.finalize.json",
+    "summaryReceipt": "C:\\Users\\natth\\OneDrive\\เอกสาร\\PROJECT - university\\DX212-Mid-Project\\WOLLSubTracker\\.archify\\workflow-agent-tool-call-20261023-215100\\agent-tool-call-v15.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "failedStage": "validate",
+  "finishedAt": "2026-10-23T15:04:26.431Z",
+  "durationMs": 2912,
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-23T14:55:34.268Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  }
+}
