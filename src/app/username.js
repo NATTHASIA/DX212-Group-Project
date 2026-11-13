@@ -109,13 +109,6 @@ export default function Username() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* 🛠️ ปุ่ม Dev ชั่วคราว (ลอยอยู่มุมขวาบน) */}
-      <TouchableOpacity 
-        style={{ position: 'absolute', top: 50, right: 20, backgroundColor: '#333', padding: 8, borderRadius: 8, zIndex: 999 }}
-        onPress={() => router.replace('/home')}
-      >
-        <Text style={{ color: 'white', fontSize: 12 }}>[Dev] ไป Home</Text>
-      </TouchableOpacity>
 
       <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

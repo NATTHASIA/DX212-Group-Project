@@ -48,16 +48,21 @@ export default function SignUpScreen() {
     }
 
     setLoading(true);
-    const { error } = await supabase.auth.signUp({
+    // 🟢 1. รับค่า data เพิ่มเติมมาเช็คสถานะ Identity
+    const { data, error } = await supabase.auth.signUp({
       email: email,
       password: password,
     });
 
     if (error) {
       Alert.alert('สมัครไม่สำเร็จ', error.message);
-    } else {
+    } 
+    // 🟢 2. ดักจับกรณีแอบเนียนสำเร็จแต่อีเมลซ้ำ (ไม่มี Identity สร้างใหม่)
+    else if (data?.user?.identities?.length === 0) {
+      Alert.alert('แจ้งเตือน', 'อีเมลนี้ถูกใช้งานแล้ว กรุณาเข้าสู่ระบบแทน');
+    } 
+    else {
       Alert.alert('สำเร็จ!', 'เราได้ส่งรหัส OTP ไปที่อีเมลของคุณแล้ว');
-      // 🟢 ลบคำสั่ง setIsOtpSent(true); ออก แล้วใส่บรรทัดนี้แทน
       router.push({ pathname: '/otp', params: { email: email } }); 
     }
     setLoading(false);
@@ -128,13 +133,6 @@ export default function SignUpScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* 🛠️ ปุ่ม Dev ชั่วคราว */}
-      <TouchableOpacity 
-        style={{ position: 'absolute', top: 50, right: 20, backgroundColor: '#333', padding: 8, borderRadius: 8, zIndex: 999 }}
-        onPress={() => router.push('/username')}
-      >
-        <Text style={{ color: 'white', fontSize: 12 }}>[Dev] ไป Username</Text>
-      </TouchableOpacity>
 
       <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

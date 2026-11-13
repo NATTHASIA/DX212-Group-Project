@@ -1,6 +1,5 @@
 import { Feather, Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-// import * as Notifications from 'expo-notifications';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
@@ -8,6 +7,7 @@ import {
   Dimensions,
   Image,
   ImageBackground,
+  Keyboard,
   Modal,
   SafeAreaView,
   ScrollView,
@@ -16,6 +16,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View
 } from 'react-native';
 import { supabase } from '../../lib/supabase';
@@ -32,16 +33,20 @@ export default function ProfileScreen() {
   const [avatarUrl, setAvatarUrl] = useState(null);
   const [subCount, setSubCount] = useState(0);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  const [isEmailProvider, setIsEmailProvider] = useState(false); 
 
-  // 🟢 State ควบคุม UI (เปิด/ปิด หัวข้อ และ Modal)
+  // 🟢 State ควบคุม UI
   const [accountOpen, setAccountOpen] = useState(true);
-  const [themesOpen, setThemesOpen] = useState(true);
   const [notificationsOpen, setNotificationsOpen] = useState(true);
   
   const [isEditProfileModal, setIsEditProfileModal] = useState(false);
   const [isChangePasswordModal, setIsChangePasswordModal] = useState(false);
   const [newUsername, setNewUsername] = useState('');
+  
+  // 🟢 State สำหรับฟอร์มเปลี่ยนรหัสผ่าน
+  const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   // 🟢 โหลดข้อมูลตอนเข้าหน้าจอ
   useEffect(() => {
@@ -56,7 +61,9 @@ export default function ProfileScreen() {
         setUser(user);
         setEmail(user.email);
 
-        // ดึง Username และ Avatar จากตาราง profiles
+        const provider = user.app_metadata?.provider;
+        setIsEmailProvider(provider === 'email');
+
         const { data: profileData } = await supabase
           .from('profiles')
           .select('username, avatar_url')
@@ -69,7 +76,6 @@ export default function ProfileScreen() {
           setAvatarUrl(profileData.avatar_url);
         }
 
-        // นับจำนวน Subscription จริง
         const { count } = await supabase
           .from('subscriptions')
           .select('*', { count: 'exact', head: true })
@@ -82,13 +88,10 @@ export default function ProfileScreen() {
     }
   };
 
-  // 🟢 เช็กสถานะแจ้งเตือนจากเครื่องมือถือ
   const checkNotificationStatus = async () => {
-    const { status } = await Notifications.getPermissionsAsync();
-    setNotificationsEnabled(status === 'granted');
+    setNotificationsEnabled(false);
   };
 
-  // 🟢 ฟังก์ชันเลือกรูปโปรไฟล์
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -102,7 +105,6 @@ export default function ProfileScreen() {
     }
   };
 
-  // 🟢 ฟังก์ชันอัปเดตโปรไฟล์และชื่อ
   const handleUpdateProfile = async () => {
     if (!newUsername.trim()) return Alert.alert('Error', 'Username cannot be empty');
     
@@ -120,24 +122,42 @@ export default function ProfileScreen() {
     }
   };
 
-  // 🟢 ฟังก์ชันเปลี่ยนรหัสผ่าน
+  // 🟢 ฟังก์ชันเปลี่ยนรหัสผ่านแบบ 3 ขั้นตอน
   const handleChangePassword = async () => {
-    if (newPassword.length < 6) return Alert.alert('Error', 'Password must be at least 6 characters');
-    
-    const { error } = await supabase.auth.updateUser({
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      return Alert.alert('Error', 'Please fill in all password fields');
+    }
+    if (newPassword !== confirmPassword) {
+      return Alert.alert('Error', 'New passwords do not match');
+    }
+    if (newPassword.length < 6) {
+      return Alert.alert('Error', 'New password must be at least 6 characters');
+    }
+
+    const { error: verifyError } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: currentPassword
+    });
+
+    if (verifyError) {
+      return Alert.alert('Error', 'Incorrect current password');
+    }
+
+    const { error: updateError } = await supabase.auth.updateUser({
       password: newPassword
     });
 
-    if (error) {
-      Alert.alert('Error', error.message);
+    if (updateError) {
+      Alert.alert('Error', updateError.message);
     } else {
+      setCurrentPassword('');
       setNewPassword('');
+      setConfirmPassword('');
       setIsChangePasswordModal(false);
       Alert.alert('Success', 'Password has been changed!');
     }
   };
 
-  // 🟢 ฟังก์ชันล็อกเอาต์
   const handleLogout = () => {
     Alert.alert('Log Out', 'Are you sure you want to log out?', [
       { text: 'Cancel', style: 'cancel' },
@@ -154,19 +174,16 @@ export default function ProfileScreen() {
         
         <Text style={styles.pageTitle}>Settings</Text>
 
-        {/* 🟢 ส่วน Profile ใช้ account_bg.png เป็นพื้นหลัง */}
         <ImageBackground 
           source={require('../../../assets/images/account_bg.png')} 
           style={styles.profileSection}
           resizeMode="cover"
         >
           <TouchableOpacity onPress={() => setIsEditProfileModal(true)}>
-            {/* 🟢 กรอบวงกลมหน้าหลัก */}
             <View style={styles.profileFrame}>
-              {/* 🟢 รูปภาพหน้าหลัก (บังคับโชว์ pfp.png เพื่อปรับขนาด) */}
-              {/* *ถ้าปรับขนาดเสร็จแล้ว ให้เปลี่ยน source เป็น: avatarUrl ? { uri: avatarUrl } : require('../../../assets/images/pfp.png') */}
               <Image 
-                source={require('../../../assets/images/pfp.png')} 
+                // 🟢 เปลี่ยนมาใช้เงื่อนไขเช็กรูป
+                source={avatarUrl ? { uri: avatarUrl } : require('../../../assets/images/pfp.png')} 
                 style={styles.profileImage} 
               />
             </View>
@@ -200,47 +217,24 @@ export default function ProfileScreen() {
                 <Text style={styles.rowLabel}>Email</Text>
                 <Text style={styles.rowValue}>{email}</Text>
               </View>
-              <View style={styles.divider} />
               
-              <View style={styles.row}>
-                <Text style={styles.rowLabel}>Password</Text>
-                <Text style={styles.rowValueMasked}>********</Text>
-                <TouchableOpacity style={styles.changeBtn} onPress={() => setIsChangePasswordModal(true)}>
-                  <Text style={styles.changeBtnText}>Change</Text>
-                </TouchableOpacity>
-              </View>
+              {isEmailProvider && (
+                <>
+                  <View style={styles.divider} />
+                  <View style={styles.row}>
+                    <Text style={styles.rowLabel}>Password</Text>
+                    <Text style={styles.rowValueMasked}>********</Text>
+                    <TouchableOpacity style={styles.changeBtn} onPress={() => setIsChangePasswordModal(true)}>
+                      <Text style={styles.changeBtnText}>Change</Text>
+                    </TouchableOpacity>
+                  </View>
+                </>
+              )}
             </View>
           )}
         </View>
 
-        {/* 🟢 2. ส่วน Themes */}
-        <View style={styles.sectionContainer}>
-          <TouchableOpacity 
-            style={styles.sectionHeader} 
-            onPress={() => setThemesOpen(!themesOpen)} 
-            activeOpacity={0.7}
-          >
-            <View style={styles.headerLeft}>
-              <Ionicons name={themesOpen ? "chevron-down" : "chevron-forward"} size={22} color="#52A595" />
-              <Text style={styles.sectionTitle}>Themes</Text>
-            </View>
-          </TouchableOpacity>
-          
-          {themesOpen && (
-            <View style={styles.sectionContent}>
-              <View style={styles.row}>
-                <Text style={styles.rowLabel}>Dark</Text>
-              </View>
-              <View style={styles.divider} />
-              <View style={styles.row}>
-                <Text style={styles.rowLabel}>Light</Text>
-                <Ionicons name="checkmark" size={24} color="#FF6B6B" />
-              </View>
-            </View>
-          )}
-        </View>
-
-        {/* 🟢 3. ส่วน Notifications */}
+        {/* 🟢 2. ส่วน Notifications */}
         <View style={styles.sectionContainer}>
           <TouchableOpacity 
             style={styles.sectionHeader} 
@@ -270,7 +264,7 @@ export default function ProfileScreen() {
           )}
         </View>
 
-        {/* 🟢 ปุ่ม Log Out */}
+        {/* ปุ่ม Log Out */}
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
           <Text style={styles.logoutText}>Log Out</Text>
         </TouchableOpacity>
@@ -281,65 +275,103 @@ export default function ProfileScreen() {
 
       {/* Modal แก้ไขโปรไฟล์ */}
       <Modal visible={isEditProfileModal} transparent={true} animationType="fade">
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalBox}>
-            <Text style={styles.modalTitle}>Edit Profile</Text>
-            
-            <TouchableOpacity onPress={pickImage} style={styles.modalImageContainer}>
-              {/* 🟢 กรอบวงกลมหน้า Modal */}
-              <View style={styles.modalFrame}>
-                {/* 🟢 รูปภาพหน้า Modal (บังคับโชว์ pfp.png เพื่อปรับขนาด) */}
-                <Image 
-                  source={require('../../../assets/images/pfp.png')} 
-                  style={styles.modalImage} 
-                />
-              </View>
-              <View style={styles.modalImageEditOverlay}>
-                <Feather name="camera" size={20} color="#FFF" />
-              </View>
-            </TouchableOpacity>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.modalOverlay}>
+            <TouchableWithoutFeedback>
+              <View style={styles.modalBox}>
+                <Text style={styles.modalTitle}>Edit Profile</Text>
+                
+                <TouchableOpacity onPress={pickImage} style={styles.modalImageContainer}>
+                  <View style={styles.modalFrame}>
+                    <Image 
+                      // 🟢 เปลี่ยนมาใช้เงื่อนไขเช็กรูปเหมือนกัน
+                      source={avatarUrl ? { uri: avatarUrl } : require('../../../assets/images/pfp.png')} 
+                      style={styles.modalImage} 
+                    />
+                  </View>
+                  <View style={styles.modalImageEditOverlay}>
+                    <Feather name="camera" size={20} color="#FFF" />
+                  </View>
+                </TouchableOpacity>
 
-            <TextInput
-              style={styles.modalInput}
-              value={newUsername}
-              onChangeText={setNewUsername}
-              placeholder="Username"
-            />
-            
-            <View style={styles.modalButtonRow}>
-              <TouchableOpacity style={styles.modalCancelBtn} onPress={() => setIsEditProfileModal(false)}>
-                <Text style={styles.modalCancelText}>Cancel</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.modalSaveBtn} onPress={handleUpdateProfile}>
-                <Text style={styles.modalSaveText}>Save</Text>
-              </TouchableOpacity>
-            </View>
+                <TextInput
+                  style={styles.modalInput}
+                  value={newUsername}
+                  onChangeText={setNewUsername}
+                  placeholder="Username"
+                  placeholderTextColor="#999999" // 🟢 เพิ่มสี placeholder
+                  color="#000" // 🟢 เพิ่มสีข้อความ
+                />
+                
+                <View style={styles.modalButtonRow}>
+                  <TouchableOpacity style={styles.modalCancelBtn} onPress={() => setIsEditProfileModal(false)}>
+                    <Text style={styles.modalCancelText}>Cancel</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.modalSaveBtn} onPress={handleUpdateProfile}>
+                    <Text style={styles.modalSaveText}>Save</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </Modal>
 
-      {/* Modal เปลี่ยนรหัสผ่าน */}
+      {/* 🟢 Modal เปลี่ยนรหัสผ่านแบบฟอร์ม 3 ช่อง */}
       <Modal visible={isChangePasswordModal} transparent={true} animationType="fade">
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalBox}>
-            <Text style={styles.modalTitle}>Change Password</Text>
-            <TextInput
-              style={styles.modalInput}
-              value={newPassword}
-              onChangeText={setNewPassword}
-              placeholder="New Password (min 6 chars)"
-              secureTextEntry
-            />
-            <View style={styles.modalButtonRow}>
-              <TouchableOpacity style={styles.modalCancelBtn} onPress={() => setIsChangePasswordModal(false)}>
-                <Text style={styles.modalCancelText}>Cancel</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.modalSaveBtn} onPress={handleChangePassword}>
-                <Text style={styles.modalSaveText}>Update</Text>
-              </TouchableOpacity>
-            </View>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.modalOverlay}>
+            <TouchableWithoutFeedback>
+              <View style={styles.modalBox}>
+                <Text style={styles.modalTitle}>Change Password</Text>
+                
+                <TextInput
+                  style={styles.modalInput}
+                  value={currentPassword}
+                  onChangeText={setCurrentPassword}
+                  placeholder="Current Password"
+                  placeholderTextColor="#999999" // 🟢 เพิ่มสี placeholder
+                  color="#000" // 🟢 เพิ่มสีข้อความ
+                  secureTextEntry
+                />
+                
+                <TextInput
+                  style={styles.modalInput}
+                  value={newPassword}
+                  onChangeText={setNewPassword}
+                  placeholder="New Password (min 6 chars)"
+                  placeholderTextColor="#999999" // 🟢 เพิ่มสี placeholder
+                  color="#000" // 🟢 เพิ่มสีข้อความ
+                  secureTextEntry
+                />
+
+                <TextInput
+                  style={[styles.modalInput, { marginBottom: 30 }]} 
+                  value={confirmPassword}
+                  onChangeText={setConfirmPassword}
+                  placeholder="Confirm New Password"
+                  placeholderTextColor="#999999" // 🟢 เพิ่มสี placeholder
+                  color="#000" // 🟢 เพิ่มสีข้อความ
+                  secureTextEntry
+                />
+
+                <View style={styles.modalButtonRow}>
+                  <TouchableOpacity style={styles.modalCancelBtn} onPress={() => {
+                    setIsChangePasswordModal(false);
+                    setCurrentPassword('');
+                    setNewPassword('');
+                    setConfirmPassword('');
+                  }}>
+                    <Text style={styles.modalCancelText}>Cancel</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.modalSaveBtn} onPress={handleChangePassword}>
+                    <Text style={styles.modalSaveText}>Update</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </Modal>
 
     </SafeAreaView>
@@ -362,10 +394,6 @@ const styles = StyleSheet.create({
     marginTop: 20, 
     marginBottom: 20 
   },
-
-  // ==========================================
-  // 🟢 1. ส่วนรูปโปรไฟล์หน้าหลัก (Profile Section)
-  // ==========================================
   profileSection: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -375,29 +403,24 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#333',
   },
-  
-  // 👉 1.1 ควบคุม "กรอบ" หน้าหลัก
   profileFrame: {
-    width: 70,               // ✏️ ปรับความกว้างกรอบ
-    height: 70,              // ✏️ ปรับความสูงกรอบ (ต้องเท่ากับกว้าง)
-    borderRadius: 35,        // ✏️ ครึ่งนึงของ width เสมอ
+    width: 70,              
+    height: 70,              
+    borderRadius: 35,        
     borderWidth: 1,
     borderColor: '#000',
     backgroundColor: '#FFF',
-    overflow: 'hidden',      // ตัดรูปที่ล้นกรอบทิ้ง
+    overflow: 'hidden',      
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'relative',    // ล็อกให้รูปลอยอยู่แค่ในกรอบนี้
+    position: 'relative',    
   },
-
-  // 👉 1.2 ควบคุม "รูปภาพ" หน้าหลัก
   profileImage: {
-    position: 'absolute',    // ปลดล็อกรูปให้เป็นอิสระจากกรอบ!
-    width: 100,               // ✏️ ปรับขนาดรูปลด/เพิ่มได้ตามใจชอบ
-    height: 100,              // ✏️ ปรับขนาดรูปลด/เพิ่มได้ตามใจชอบ
+    position: 'absolute',    
+    width: 100,               
+    height: 100,              
     resizeMode: 'cover',
   },
-  
   profileInfo: { 
     marginLeft: 15, 
     justifyContent: 'center' 
@@ -420,10 +443,6 @@ const styles = StyleSheet.create({
     color: '#666', 
     marginTop: 4 
   },
-
-  // ==========================================
-  // 🟢 ส่วนรายการตั้งค่า (Accordion Section)
-  // ==========================================
   sectionContainer: { 
     marginTop: 10 
   },
@@ -510,10 +529,6 @@ const styles = StyleSheet.create({
     fontSize: 18, 
     fontWeight: 'bold' 
   },
-
-  // ==========================================
-  // 🟢 2. ส่วนรูปโปรไฟล์ในป๊อปอัป (Modal Styles)
-  // ==========================================
   modalOverlay: { 
     flex: 1, 
     backgroundColor: 'rgba(0,0,0,0.5)', 
@@ -542,29 +557,24 @@ const styles = StyleSheet.create({
     position: 'relative', 
     marginBottom: 20 
   },
-
-  // 👉 2.1 ควบคุม "กรอบ" หน้า Modal
   modalFrame: {
-    width: 100,              // ✏️ ปรับความกว้างกรอบ Modal
-    height: 100,             // ✏️ ปรับความสูงกรอบ (ต้องเท่ากับกว้าง)
-    borderRadius: 50,        // ✏️ ครึ่งนึงของ width เสมอ
+    width: 100,              
+    height: 100,             
+    borderRadius: 50,        
     borderWidth: 1,
     borderColor: '#CCC',
     backgroundColor: '#FFF',
-    overflow: 'hidden',      // ตัดรูปที่ล้นกรอบทิ้ง
+    overflow: 'hidden',      
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
   },
-
-  // 👉 2.2 ควบคุม "รูปภาพ" หน้า Modal
   modalImage: {
-    position: 'absolute',    // ปลดล็อกรูป!
-    width: 143,              // ✏️ ปรับขนาดรูปลด/เพิ่มได้ตามใจชอบ
-    height: 143,             // ✏️ ปรับขนาดรูปลด/เพิ่มได้ตามใจชอบ
+    position: 'absolute',    
+    width: 143,              
+    height: 143,             
     resizeMode: 'cover',
   },
-
   modalImageEditOverlay: { 
     position: 'absolute', 
     bottom: 0, 
@@ -585,7 +595,7 @@ const styles = StyleSheet.create({
     borderRadius: 12, 
     padding: 12, 
     fontSize: 16, 
-    marginBottom: 20, 
+    marginBottom: 15, 
     backgroundColor: '#F9F9F9' 
   },
   modalButtonRow: { 

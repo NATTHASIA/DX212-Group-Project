@@ -13,7 +13,7 @@ export const supabase = createClient(
       persistSession: true,
       autoRefreshToken: true,     // ต่ออายุ token อัตโนมัติ
       detectSessionInUrl: false,  // ไม่ใช่เว็บ จึงปิด
-      flowType: 'pkce',           // รูปแบบที่ปลอดภัยสำหรับ OAuth บนมือถือ
+      flowType: 'pkce',
     },
   }
 );

@@ -86,14 +86,6 @@ export default function LoginScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      
-      {/* 🛠️ ปุ่ม Dev ชั่วคราว (ลอยอยู่มุมขวาบน) */}
-      <TouchableOpacity 
-        style={{ position: 'absolute', top: 50, right: 20, backgroundColor: '#333', padding: 8, borderRadius: 8, zIndex: 999 }}
-        onPress={() => router.push('/username')}
-      >
-        <Text style={{ color: 'white', fontSize: 12 }}>[Dev] ไป Username</Text>
-      </TouchableOpacity>
 
       <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -113,7 +105,10 @@ export default function LoginScreen() {
           <View style={styles.topDivider} />
 
           {/* ปุ่มย้อนกลับ และ หัวข้อ Login */}
-          <TouchableOpacity style={styles.headerRow} onPress={() => router.back()}>
+          <TouchableOpacity 
+            style={styles.headerRow}
+            onPress={() => router.replace('/')}
+          >
             <Ionicons name="chevron-back" size={28} color="#5C0A0A" />
             <Text style={styles.headerTitle}>Login</Text>
           </TouchableOpacity>

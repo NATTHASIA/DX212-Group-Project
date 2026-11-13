@@ -1,3 +1,4 @@
+// แก้ให้ name ขึ้นข้อมูลใน subscription เพราะตอนนี้เป็น NULL
 import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Slider from '@react-native-community/slider';
@@ -30,7 +31,6 @@ export default function AddScreen() {
   const router = useRouter();
 
   const [price, setPrice] = useState('');
-  // 🟢 เปลี่ยน Date ให้เก็บเป็น Object ของวันที่แทนข้อความธรรมดา
   const [date, setDate] = useState(new Date()); 
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -86,7 +86,7 @@ export default function AddScreen() {
     setIsCustom(false);
     setSelectedService(item);
     setColor(item.brand_color || '#000000'); 
-    setCancelUrl(item.cancel_url || ''); // แก้ไขตรงกับใน DB แล้ว
+    setCancelUrl(item.cancel_url || ''); 
     setServiceModalVisible(false);
   };
 
@@ -98,8 +98,26 @@ export default function AddScreen() {
     setServiceModalVisible(false);
   };
 
+  // 🟢 Helper สำหรับบวกวันที่ตาม Cycle
+  const addCycle = (currentDateObj, cycleType) => {
+    let nextD = new Date(currentDateObj);
+    if (cycleType === 'Weekly') nextD.setDate(nextD.getDate() + 7);
+    else if (cycleType === 'Every 2 weeks') nextD.setDate(nextD.getDate() + 14);
+    else if (cycleType === 'Monthly') nextD.setMonth(nextD.getMonth() + 1);
+    else if (cycleType === 'Every 2 months') nextD.setMonth(nextD.getMonth() + 2);
+    else if (cycleType === 'Every 3 months') nextD.setMonth(nextD.getMonth() + 3);
+    else if (cycleType === 'Every 6 months') nextD.setMonth(nextD.getMonth() + 6);
+    else if (cycleType === 'Yearly') nextD.setFullYear(nextD.getFullYear() + 1);
+    else nextD.setMonth(nextD.getMonth() + 1);
+    return nextD;
+  };
+
+  const formatDateString = (d) => {
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  };
+
   const saveToSupabase = async () => {
-    if (!isCustom && !selectedService) return Alert.alert('แจ้งเตือน', 'กรุณาเลือกบริการ หรือเลือกพิมพ์ชื่อเอง');
+    if (!isCustom && !selectedService) return Alert.alert('แจ้งเตือน', 'กรุณาเลือกบริการ หรือพิมพ์ชื่อเอง');
     const finalName = isCustom ? customName.trim() : selectedService?.name;
     if (!finalName) return Alert.alert('แจ้งเตือน', 'กรุณาระบุชื่อบริการ');
 
@@ -108,11 +126,34 @@ export default function AddScreen() {
 
     try {
       const { data: { user }, error: authError } = await supabase.auth.getUser();
-      if (authError || !user) throw new Error('ไม่พบข้อมูลผู้ใช้ กรุณาล็อกอินใหม่');
+      if (authError || !user) throw new Error('ไม่พบข้อมูลผู้ใช้');
 
-      // 🟢 แปลงวันที่ให้เป็น Format YYYY-MM-DD เสมอ
-      const formattedDate = date.toISOString().split('T')[0];
+      // 🟢 ลอจิกคำนวณวันจ่าย (อดีต vs อนาคต)
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // รีเซ็ตเวลาเพื่อเทียบแค่วันที่
+      const selectedObj = new Date(date);
+      selectedObj.setHours(0, 0, 0, 0);
 
+      let nextBillingDateObj = new Date(selectedObj);
+      let lastPaymentDateObj = null;
+
+      // ถ้าเลือกวันนี้ หรืออดีต (เช่น 10 Nov หรือ 10 Aug)
+      if (selectedObj <= today) {
+        let t = new Date(selectedObj);
+        // หมุนลูปหางวดล่าสุดที่จ่ายไป และรอบถัดไป
+        while (t <= today) {
+          lastPaymentDateObj = new Date(t); // นี่คืองวดล่าสุดของเดือนนี้
+          t = addCycle(t, repeat);
+        }
+        nextBillingDateObj = new Date(t); // ดันไปเดือนหน้าให้โชว์ในกระดิ่ง
+      } else {
+        // ถ้าเลือกอนาคต (เช่น 25 Nov) ยังไม่ถือว่าจ่าย แค่เซ็ตให้รอถึงวันนั้น
+        nextBillingDateObj = new Date(selectedObj);
+      }
+
+      const nextBillingDateStr = formatDateString(nextBillingDateObj);
+
+      // 1. บันทึกลงตาราง subscriptions
       const payload = {
         user_id: user.id,
         catalog_id: isCustom ? null : selectedService?.id,
@@ -120,13 +161,32 @@ export default function AddScreen() {
         hex_color: color,
         price: p,
         billing_cycle: repeat,
-        next_billing_date: formattedDate, // 🟢 ส่งค่าที่แปลงแล้วเข้า Database
-        notify_days_before: notificationsEnabled ? notifyDays : 0,
-        custom_cancle_url: cancelUrl || null
+        next_billing_date: nextBillingDateStr, // ส่งไปเป็นรอบถัดไป(อดีต) หรือรอบแรก(อนาคต)
+        notify_days_before: notificationsEnabled ? parseInt(notifyDays) : 0, 
+        custom_cancle_url: cancelUrl || null,
+        payment: payment
       };
 
-      const { error } = await supabase.from('subscriptions').insert([payload]);
-      if (error) throw error;
+      const { data: subData, error: subError } = await supabase
+        .from('subscriptions')
+        .insert([payload])
+        .select();
+
+      if (subError) throw subError;
+
+      // 2. ถ้ามีประวัติการจ่าย (เลือกอดีต/วันนี้) ให้บันทึกลง History ดึงโชว์ Recently Paid
+      if (lastPaymentDateObj && subData && subData.length > 0) {
+        const newSubId = subData[0].id;
+        const historyPayload = {
+          user_id: user.id,
+          subscription_id: newSubId,
+          amount: p,
+          paid_at: formatDateString(lastPaymentDateObj) // วันจ่ายงวดล่าสุด
+        };
+
+        const { error: historyError } = await supabase.from('payment_history').insert([historyPayload]);
+        if (historyError) console.error("Error inserting payment history:", historyError.message);
+      }
       
       Alert.alert('Success!', 'Subscription added successfully.');
       router.back(); 
@@ -198,13 +258,12 @@ export default function AddScreen() {
                   <View style={styles.flex1}>
                     <Text style={styles.label}>Date</Text>
                     
-                    {/* 🟢 เปลี่ยนเป็นปุ่มกดเพื่อเปิดปฏิทิน */}
                     <TouchableOpacity 
                       style={[styles.input, { justifyContent: 'center' }]} 
                       onPress={() => setShowDatePicker(true)}
                     >
                       <Text style={{ color: '#000', fontSize: 14 }}>
-                        {date.toISOString().split('T')[0]}
+                        {formatDateString(date)}
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -269,7 +328,7 @@ export default function AddScreen() {
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
 
-      {/* ================= 🟢 MODAL เลือกวันที่ (เฉพาะ iOS) ================= */}
+      {/* ================= 🟢 MODAL เลือกวันที่ ================= */}
       {Platform.OS === 'ios' && (
         <Modal visible={showDatePicker} transparent animationType="fade">
           <View style={styles.modalOverlay}>
@@ -278,8 +337,8 @@ export default function AddScreen() {
                 value={date}
                 mode="date"
                 display="spinner"
-                textColor="#000000"       // 🟢 บังคับตัวหนังสือเป็นสีดำ
-                themeVariant="light"      // 🟢 บังคับให้ใช้โหมดสว่าง (Light Mode) เสมอ
+                textColor="#000000"      
+                themeVariant="light"      
                 onChange={(event, selectedDate) => {
                   if (selectedDate) setDate(selectedDate);
                 }}
@@ -292,7 +351,6 @@ export default function AddScreen() {
         </Modal>
       )}
 
-      {/* ================= 🟢 MODAL เลือกวันที่ (สำหรับ Android) ================= */}
       {Platform.OS === 'android' && showDatePicker && (
         <DateTimePicker
           value={date}
@@ -305,7 +363,7 @@ export default function AddScreen() {
         />
       )}
 
-      {/* ================= MODAL เลือกแอป (Service) ================= */}
+      {/* ================= MODAL เลือกระบบต่างๆ (ซ่อนโค้ดไว้ให้กระชับ) ================= */}
       <Modal visible={isServiceModalVisible} transparent={true} animationType="fade">
         <View style={styles.modalOverlay}>
           <View style={styles.listModalBox}>
@@ -321,14 +379,11 @@ export default function AddScreen() {
                 <Text style={styles.customItemText}>Custom (พิมพ์ชื่อแอปเอง)</Text>
               </TouchableOpacity>
             </ScrollView>
-            <TouchableOpacity style={styles.modalCloseBtn} onPress={() => setServiceModalVisible(false)}>
-              <Text style={styles.modalCloseBtnText}>Close</Text>
-            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalCloseBtn} onPress={() => setServiceModalVisible(false)}><Text style={styles.modalCloseBtnText}>Close</Text></TouchableOpacity>
           </View>
         </View>
       </Modal>
 
-      {/* ================= MODAL ตัวเลือก Repeat ================= */}
       <Modal visible={isRepeatModalVisible} transparent={true} animationType="fade">
         <View style={styles.modalOverlay}>
           <View style={styles.listModalBox}>
@@ -340,14 +395,11 @@ export default function AddScreen() {
                 </TouchableOpacity>
               ))}
             </ScrollView>
-            <TouchableOpacity style={styles.modalCloseBtn} onPress={() => setRepeatModalVisible(false)}>
-              <Text style={styles.modalCloseBtnText}>Close</Text>
-            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalCloseBtn} onPress={() => setRepeatModalVisible(false)}><Text style={styles.modalCloseBtnText}>Close</Text></TouchableOpacity>
           </View>
         </View>
       </Modal>
 
-      {/* ================= MODAL ตัวเลือก Notifications ================= */}
       <Modal visible={isNotifyModalVisible} transparent={true} animationType="fade">
         <View style={styles.modalOverlay}>
           <View style={styles.listModalBox}>
@@ -359,51 +411,28 @@ export default function AddScreen() {
                 </TouchableOpacity>
               ))}
             </ScrollView>
-            <TouchableOpacity style={styles.modalCloseBtn} onPress={() => setNotifyModalVisible(false)}>
-              <Text style={styles.modalCloseBtnText}>Close</Text>
-            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalCloseBtn} onPress={() => setNotifyModalVisible(false)}><Text style={styles.modalCloseBtnText}>Close</Text></TouchableOpacity>
           </View>
         </View>
       </Modal>
 
-      {/* ================= MODAL Color Picker ================= */}
       <Modal visible={isColorModalVisible} transparent={true} animationType="fade">
         <View style={styles.modalOverlayColor}>
           <View style={styles.colorModalBox}>
             <View style={[styles.previewColorBox, { backgroundColor: tempColor }]} />
-            
-            <View style={styles.sliderContainer}>
-              <Text style={styles.sliderLabel}>R ({r})</Text>
-              <Slider style={{flex: 1}} minimumValue={0} maximumValue={255} step={1} value={r} minimumTrackTintColor="#FF0000" onValueChange={(val) => { setR(val); updateHexFromRgb(val, g, b); }} />
-            </View>
-            <View style={styles.sliderContainer}>
-              <Text style={styles.sliderLabel}>G ({g})</Text>
-              <Slider style={{flex: 1}} minimumValue={0} maximumValue={255} step={1} value={g} minimumTrackTintColor="#00FF00" onValueChange={(val) => { setG(val); updateHexFromRgb(r, val, b); }} />
-            </View>
-            <View style={styles.sliderContainer}>
-              <Text style={styles.sliderLabel}>B ({b})</Text>
-              <Slider style={{flex: 1}} minimumValue={0} maximumValue={255} step={1} value={b} minimumTrackTintColor="#0000FF" onValueChange={(val) => { setB(val); updateHexFromRgb(r, g, val); }} />
-            </View>
-
-            <View style={styles.hexRow}>
-              <Text style={styles.modalLabelDark}>Hex #</Text>
-              <TextInput style={styles.hexInput} value={tempColor} onChangeText={(val) => { setTempColor(val); updateRgbFromHex(val); }} autoCapitalize="characters" maxLength={7} />
-            </View>
-
+            <View style={styles.sliderContainer}><Text style={styles.sliderLabel}>R ({r})</Text><Slider style={{flex: 1}} minimumValue={0} maximumValue={255} step={1} value={r} minimumTrackTintColor="#FF0000" onValueChange={(val) => { setR(val); updateHexFromRgb(val, g, b); }} /></View>
+            <View style={styles.sliderContainer}><Text style={styles.sliderLabel}>G ({g})</Text><Slider style={{flex: 1}} minimumValue={0} maximumValue={255} step={1} value={g} minimumTrackTintColor="#00FF00" onValueChange={(val) => { setG(val); updateHexFromRgb(r, val, b); }} /></View>
+            <View style={styles.sliderContainer}><Text style={styles.sliderLabel}>B ({b})</Text><Slider style={{flex: 1}} minimumValue={0} maximumValue={255} step={1} value={b} minimumTrackTintColor="#0000FF" onValueChange={(val) => { setB(val); updateHexFromRgb(r, g, val); }} /></View>
+            <View style={styles.hexRow}><Text style={styles.modalLabelDark}>Hex #</Text><TextInput style={styles.hexInput} value={tempColor} onChangeText={(val) => { setTempColor(val); updateRgbFromHex(val); }} autoCapitalize="characters" maxLength={7} /></View>
             <View style={styles.topDividerColorModal} />
             <Text style={[styles.modalLabelDark, { marginTop: 10, marginBottom: 10 }]}>Default Brand Colors</Text>
-            
             <View style={styles.presetContainer}>
-              {defaultColors.map((c, index) => (
-                <TouchableOpacity key={index} style={[styles.presetCircle, { backgroundColor: c, borderColor: tempColor === c ? '#FFF' : '#444', borderWidth: tempColor === c ? 2 : 1 }]} onPress={() => { setTempColor(c); updateRgbFromHex(c); }} />
-              ))}
+              {defaultColors.map((c, index) => (<TouchableOpacity key={index} style={[styles.presetCircle, { backgroundColor: c, borderColor: tempColor === c ? '#FFF' : '#444', borderWidth: tempColor === c ? 2 : 1 }]} onPress={() => { setTempColor(c); updateRgbFromHex(c); }} />))}
             </View>
-
             <View style={styles.modalButtonRow}>
               <TouchableOpacity style={styles.modalCancelBtnColor} onPress={() => setColorModalVisible(false)}><Text style={styles.modalBtnTextColor}>Cancel</Text></TouchableOpacity>
               <TouchableOpacity style={styles.modalSaveBtnColor} onPress={() => { setColor(tempColor); setColorModalVisible(false); }}><Text style={styles.modalSaveTextColor}>Apply</Text></TouchableOpacity>
             </View>
-
           </View>
         </View>
       </Modal>
@@ -416,19 +445,10 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#ffffff' },
   background: { flex: 1, width: '100%' },
   scrollContent: { paddingHorizontal: 25, paddingBottom: 40 },
-  
-  logoContainer: { 
-    alignItems: 'center', 
-    marginTop: 15, 
-    marginBottom: 20,
-    marginLeft: 8,
-  },
-
+  logoContainer: { alignItems: 'center', marginTop: 15, marginBottom: 20, marginLeft: 8 },
   logo: { width: width * 0.4, height: 60, resizeMode: 'contain' },
   topDivider: { width: width, height: 1.25, backgroundColor: '#E0E0E0' },
-
   pageTitle: { fontSize: 26, fontWeight: '900', color: '#000', marginBottom: 20, marginTop: 25 },
-
   cardContainer: { backgroundColor: '#FFF3CD', borderRadius: 20, padding: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 6, elevation: 5 },
   row: { flexDirection: 'row', alignItems: 'flex-end' },
   marginTop: { marginTop: 15 },
@@ -436,38 +456,28 @@ const styles = StyleSheet.create({
   flex2: { flex: 2 },
   spacer: { width: 15 },
   label: { fontSize: 14, fontWeight: '900', color: '#7A0000', marginBottom: 6 },
-  
   input: { backgroundColor: '#FFF', borderRadius: 20, paddingHorizontal: 15, height: 40, fontSize: 14, color: '#000', elevation: 2 },
   dropdown: { backgroundColor: '#FFF', borderRadius: 20, paddingHorizontal: 15, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', elevation: 2 },
   dropdownText: { fontSize: 14, color: '#000', flex: 1 },
-  
   colorPickerContainer: { alignItems: 'center', marginLeft: 15 },
   colorHexText: { fontSize: 10, color: '#333', marginBottom: 4, fontWeight: 'bold' },
   colorCircle: { width: 45, height: 35, borderRadius: 20, borderWidth: 1, borderColor: '#CCC' },
   switchRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 5 },
-
   okButton: { backgroundColor: '#5C0A0A', borderRadius: 25, height: 50, justifyContent: 'center', alignItems: 'center', marginTop: 30, elevation: 3 },
   okButtonText: { color: '#FFF', fontSize: 18, fontWeight: 'bold' },
   cancelButton: { backgroundColor: '#FFF', borderRadius: 25, height: 50, justifyContent: 'center', alignItems: 'center', marginTop: 15, elevation: 3 },
   cancelButtonText: { color: '#999', fontSize: 18, fontWeight: 'bold' },
-
   modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'center', alignItems: 'center' },
   modalOverlayColor: { flex: 1, backgroundColor: 'rgba(0,0,0,0.7)', justifyContent: 'center', alignItems: 'center' },
-  
   listModalBox: { width: '85%', backgroundColor: '#FFF', borderRadius: 24, padding: 20, alignItems: 'center', shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 10, elevation: 5 },
   modalTitle: { fontSize: 16, color: '#000', marginBottom: 10 },
   listItem: { width: '100%', paddingVertical: 15, borderBottomWidth: 1, borderBottomColor: '#F0F0F0', alignItems: 'center' },
   listItemText: { fontSize: 16, color: '#000', fontWeight: 'bold' },
-  
   activeListItemText: { color: '#E50914', fontWeight: 'bold' },
-
   customItem: { width: '100%', paddingVertical: 15, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#FFF9E6', borderRadius: 10, marginTop: 10 },
   customItemText: { fontSize: 16, color: '#5C0A0A', fontWeight: 'bold' },
-  
-  // 🟢 แก้ไขปุ่ม Done ของปฏิทินให้สวยงาม
   modalCloseBtn: { backgroundColor: '#F0F0F0', paddingVertical: 12, paddingHorizontal: 40, borderRadius: 16, marginBottom: 20, marginTop: 10 },
   modalCloseBtnText: { color: '#333', fontWeight: 'bold' },
-
   colorModalBox: { width: '90%', backgroundColor: '#2C2C2E', borderRadius: 20, padding: 20 }, 
   previewColorBox: { width: '100%', height: 70, borderRadius: 10, marginBottom: 20, borderWidth: 2, borderColor: '#444' },
   sliderContainer: { flexDirection: 'row', alignItems: 'center', marginBottom: 15 },
