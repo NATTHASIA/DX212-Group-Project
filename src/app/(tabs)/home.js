@@ -1,11 +1,14 @@
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import {
+  Alert,
+  Animated,
   Dimensions,
   FlatList,
   Image,
   ImageBackground,
   Modal,
+  PanResponder, // 🟢 เพิ่ม PanResponder สำหรับจับการลากนิ้ว
   Platform,
   SafeAreaView,
   ScrollView,
@@ -27,7 +30,38 @@ export default function HomeScreen() {
   const [subscriptions, setSubscriptions] = useState([]);
   const [recentPayments, setRecentPayments] = useState([]); 
   const [totalCost, setTotalCost] = useState(0);
+  
   const [showCostBreakdown, setShowCostBreakdown] = useState(false);
+  const slideAnim = useRef(new Animated.Value(height)).current; 
+
+  // 🟢 สร้างตัวจับการลาก (PanResponder) สำหรับ Modal
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: (evt, gestureState) => {
+        // ให้ทำงานเฉพาะตอนที่ผู้ใช้เริ่ม "ลากลง" เท่านั้น
+        return gestureState.dy > 0 && gestureState.vy > 0;
+      },
+      onPanResponderMove: (evt, gestureState) => {
+        // อัปเดตค่าอนิเมชั่นให้กรอบขาวเลื่อนลงตามนิ้ว
+        if (gestureState.dy > 0) {
+          slideAnim.setValue(gestureState.dy);
+        }
+      },
+      onPanResponderRelease: (evt, gestureState) => {
+        // ถ้าลากลงมาเกิน 120px หรือปัดลงแรงๆ ให้ทำการ "ปิด"
+        if (gestureState.dy > 120 || gestureState.vy > 1.5) {
+          closeCostBreakdown();
+        } else {
+          // ถ้าลากนิดเดียวแล้วปล่อย ให้เด้งกลับไปที่เดิม
+          Animated.spring(slideAnim, {
+            toValue: 0,
+            useNativeDriver: true,
+          }).start();
+        }
+      }
+    })
+  ).current;
 
   useFocusEffect(
     useCallback(() => {
@@ -52,9 +86,8 @@ export default function HomeScreen() {
       if (subsError) throw subsError;
       const subs = subsData || [];
 
-      // 🟢 1. ระบบ Auto-Rollover 
       const today = new Date();
-      today.setHours(0, 0, 0, 0); // ตัดเวลาทิ้ง เทียบแค่วัน
+      today.setHours(0, 0, 0, 0); 
       const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 
       for (let sub of subs) {
@@ -63,9 +96,7 @@ export default function HomeScreen() {
         const billingDate = new Date(bParts[0], bParts[1] - 1, bParts[2]);
         billingDate.setHours(0, 0, 0, 0);
 
-        // ถ้าถึงวัน/เลยวันกำหนดชำระแล้ว ให้ Rollover เลื่อนรอบบิล
         if (today >= billingDate) {
-          
           await supabase.from('payment_history').insert([{
             user_id: user.id,
             subscription_id: sub.id,
@@ -95,7 +126,6 @@ export default function HomeScreen() {
       const total = subs.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
       setTotalCost(total);
 
-      // 🟢 2. ดึงประวัติเดือนนี้ "ที่จ่ายไปแล้ว" (ไม่ดึงของอนาคต)
       const currentYear = today.getFullYear();
       const currentMonth = String(today.getMonth() + 1).padStart(2, '0');
       const startOfMonth = `${currentYear}-${currentMonth}-01`;
@@ -105,7 +135,7 @@ export default function HomeScreen() {
         .select(`*, subscriptions ( id, name, hex_color, service_catalog ( name, logo_url ) )`)
         .eq('user_id', user.id)
         .gte('paid_at', startOfMonth)
-        .lte('paid_at', todayStr) // 🟢 ล็อกเลยว่าห้ามดึงของวันพรุ่งนี้เป็นต้นไปมาโชว์!
+        .lte('paid_at', todayStr)
         .order('paid_at', { ascending: false }); 
 
       if (historyError) throw historyError;
@@ -133,6 +163,29 @@ export default function HomeScreen() {
         percentage: percentage
       };
     });
+
+  const openCostBreakdown = () => {
+    if (breakdownData.length > 0) {
+      setShowCostBreakdown(true);
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Alert.alert('Hold on!', "You haven't added any subscriptions yet. Let's add some first!");
+    }
+  };
+
+  const closeCostBreakdown = () => {
+    Animated.timing(slideAnim, {
+      toValue: height,
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => {
+      setShowCostBreakdown(false); 
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -180,9 +233,9 @@ export default function HomeScreen() {
               )}
             </View>
 
-            <TouchableOpacity onPress={() => breakdownData.length > 0 && setShowCostBreakdown(true)}>
+            <TouchableOpacity onPress={openCostBreakdown}>
               <Text style={[styles.linkText, breakdownData.length === 0 && { color: '#CCC' }]}>
-                See what cost you?
+                See what costs you?
               </Text>
             </TouchableOpacity>
           </View>
@@ -201,6 +254,7 @@ export default function HomeScreen() {
                    data={recentPayments}
                    keyExtractor={item => item.id.toString()}
                    showsVerticalScrollIndicator={false}
+                   contentContainerStyle={{ paddingBottom: 20 }} 
                    renderItem={({ item }) => {
                      const sub = item.subscriptions;
                      const logoUrl = sub?.service_catalog?.logo_url;
@@ -234,14 +288,33 @@ export default function HomeScreen() {
         </View>
       </ImageBackground>
 
-      <Modal visible={showCostBreakdown} transparent animationType="slide" onRequestClose={() => setShowCostBreakdown(false)}>
-        <TouchableOpacity style={styles.bottomSheetOverlay} activeOpacity={1} onPress={() => setShowCostBreakdown(false)}>
-          <TouchableWithoutFeedback>
-            <View style={styles.bottomSheetContainer}>
+      <Modal 
+        visible={showCostBreakdown} 
+        transparent 
+        animationType="fade" 
+        onRequestClose={closeCostBreakdown}
+      >
+        <View style={styles.bottomSheetOverlay}>
+          <TouchableOpacity 
+            style={StyleSheet.absoluteFill} 
+            activeOpacity={1} 
+            onPress={closeCostBreakdown} 
+          />
+          
+          <Animated.View 
+            style={[
+              styles.bottomSheetContainer, 
+              { transform: [{ translateY: slideAnim }] } 
+            ]}
+          >
+            {/* 🟢 ห่อพื้นที่ส่วนหัวและขีดด้วย panHandlers เพื่อให้จับลากนิ้วได้ */}
+            <View {...panResponder.panHandlers} style={styles.dragHandleArea}>
               <View style={styles.dragIndicator} />
               <Text style={styles.bottomSheetTitle}>Cost Breakdown</Text>
-              
-              <ScrollView showsVerticalScrollIndicator={false} style={{ width: '100%' }}>
+            </View>
+            
+            <View style={{ width: '100%', height: 240 }}>
+              <ScrollView showsVerticalScrollIndicator={false} bounces={true}>
                 {breakdownData.map((item) => (
                   <View key={item.id} style={styles.breakdownRow}>
                     <View style={styles.breakdownLeft}>
@@ -255,13 +328,13 @@ export default function HomeScreen() {
                   </View>
                 ))}
               </ScrollView>
-              
-              <TouchableOpacity style={styles.closeSheetBtn} onPress={() => setShowCostBreakdown(false)}>
-                <Text style={styles.closeSheetBtnText}>Close</Text>
-              </TouchableOpacity>
             </View>
-          </TouchableWithoutFeedback>
-        </TouchableOpacity>
+            
+            <TouchableOpacity style={styles.closeSheetBtn} onPress={closeCostBreakdown}>
+              <Text style={styles.closeSheetBtnText}>Close</Text>
+            </TouchableOpacity>
+          </Animated.View>
+        </View>
       </Modal>
 
       <Modal visible={showHooray} transparent animationType="fade">
@@ -285,11 +358,13 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#ffffff' },
   background: { flex: 1, width: '100%' },
-  contentContainer: { flex: 1, paddingHorizontal: 20, paddingTop: 30, paddingBottom: 100 },
+  contentContainer: { flex: 1, paddingHorizontal: 20, paddingTop: 30, paddingBottom: 0 }, 
+  
   logoContainer: { alignItems: 'center', marginTop: 10, marginBottom: 20 },
   logo: { width: width * 0.4, height: 60, resizeMode: 'contain' },
   topDivider: { width: width, height: 1.25, backgroundColor: '#E0E0E0' },
   pageTitle: { fontSize: 26, fontWeight: '900', color: '#000000', marginBottom: 20, marginHorizontal: 5 },
+  
   summaryCard: { backgroundColor: '#ffffff', borderRadius: 20, padding: 25, marginBottom: 20, marginHorizontal: 5, borderWidth: 1, borderColor: '#FFEBEB', shadowColor: '#FFCACA', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.8, shadowRadius: 10, elevation: 5 },
   amountRow: { flexDirection: 'row', alignItems: 'baseline', marginBottom: 15 },
   amountText: { fontSize: 40, fontWeight: 'bold', color: '#000000', letterSpacing: -1 },
@@ -298,7 +373,26 @@ const styles = StyleSheet.create({
   progressSegment: { height: '100%' },
   emptyProgressBar: { flex: 1, height: 18, backgroundColor: '#BCC6D0', borderRadius: 10 },
   linkText: { fontSize: 14, fontWeight: '600', color: '#555555', textDecorationLine: 'underline' },
-  recentListContainer: { flex: 1, backgroundColor: '#FFF', borderRadius: 20, padding: 20, marginHorizontal: 5, borderWidth: 1, borderColor: '#FFEBEB', shadowColor: '#FFCACA', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.5, shadowRadius: 8, elevation: 3 },
+  
+  recentListContainer: { 
+    flex: 1, 
+    backgroundColor: '#FFF', 
+    borderTopLeftRadius: 20, 
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 0, 
+    borderBottomRightRadius: 0,
+    paddingTop: 20,
+    paddingHorizontal: 20, 
+    marginHorizontal: 5, 
+    borderWidth: 1, 
+    borderColor: '#FFEBEB', 
+    borderBottomWidth: 0, 
+    shadowColor: '#FFCACA', 
+    shadowOffset: { width: 0, height: -4 }, 
+    shadowOpacity: 0.5, 
+    shadowRadius: 8, 
+    elevation: 3 
+  },
   recentTitle: { fontSize: 20, fontWeight: '900', color: '#000', marginBottom: 15 },
   recentCard: { flexDirection: 'row', alignItems: 'center', marginBottom: 15 },
   recentLogoWrapper: { marginRight: 15 },
@@ -312,15 +406,38 @@ const styles = StyleSheet.create({
   emptyStateContainer: { alignItems: 'center', justifyContent: 'center', marginTop: 20 },
   grayCharacter: { width: 220, height: 170, resizeMode: 'contain', marginLeft: -22, marginBottom: 20 },
   emptyStateText: { fontSize: 18, fontWeight: 'bold', color: '#999999', textAlign: 'center', lineHeight: 26 },
+  
   modalOverlay: { flex: 1, backgroundColor: 'rgba(230, 230, 230, 0.85)', justifyContent: 'center', alignItems: 'center', padding: 20 },
   modalContent: { width: '85%', backgroundColor: '#ffffff', borderRadius: 45, paddingVertical: 50, paddingHorizontal: 60, alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 10, elevation: 5 },
   hoorayImg: { width: 140, height: 140, resizeMode: 'contain', marginBottom: 20 },
   hoorayTitle: { fontSize: 32, fontWeight: '900', color: '#8B1A1A', marginBottom: 8 },
   hooraySub: { fontSize: 16, fontWeight: '600', color: '#888' },
-  bottomSheetOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'flex-end' },
-  bottomSheetContainer: { backgroundColor: '#FFF', borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingHorizontal: 25, paddingTop: 15, paddingBottom: Platform.OS === 'ios' ? 40 : 25, alignItems: 'center', maxHeight: height * 0.7 },
+  
+  bottomSheetOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'flex-end' },
+  bottomSheetContainer: { 
+    backgroundColor: '#FFF', 
+    borderTopLeftRadius: 30, 
+    borderTopRightRadius: 30, 
+    paddingHorizontal: 25, 
+    paddingBottom: Platform.OS === 'ios' ? 40 : 25, 
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 10,
+  },
+  
+  // 🟢 สไตล์ใหม่สำหรับพื้นที่ลาก
+  dragHandleArea: {
+    width: '100%',
+    alignItems: 'center',
+    paddingTop: 15,
+    backgroundColor: 'transparent',
+  },
   dragIndicator: { width: 50, height: 5, backgroundColor: '#E0E0E0', borderRadius: 5, marginBottom: 20 },
   bottomSheetTitle: { fontSize: 22, fontWeight: '900', color: '#000', marginBottom: 20, alignSelf: 'flex-start' },
+  
   breakdownRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: '#F0F0F0' },
   breakdownLeft: { flexDirection: 'row', alignItems: 'center' },
   colorDot: { width: 14, height: 14, borderRadius: 7, marginRight: 12 },
